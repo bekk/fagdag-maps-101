@@ -1,0 +1,42 @@
+{
+  "name": "fagdag-maps-101",
+  "version": "0.0.1",
+  "description": "Repo for fagdag-workshop om maps 101",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "node node_modules/openlayers/tasks/build.js ol.json build/ol.min.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "st -nc -p 3000 -i 'index.html'",
+    "watch-css": "catw -c 'lessc --include-path=less -' 'less/app.less' -o static/bundle.css -v",
+    "watch-js": "watchify js/app.js -o static/bundle.js -dv",
+    "watch": "npm run watch-css & npm run watch-js & npm run serve",
+    "build-css": "catw -c 'lessc --include-path=less -' 'less/app.less' > static/bundle.css",
+    "build-js": "browserify js/app.js > static/bundle.js",
+    "build": "npm run build-css && npm run build-js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bekk/fagdag-maps-101.git"
+  },
+  "author": "@torgeir",
+  "license": "mit",
+  "bugs": {
+    "url": "https://github.com/bekk/fagdag-maps-101/issues"
+  },
+  "homepage": "https://github.com/bekk/fagdag-maps-101",
+  "dependencies": {
+    "leaflet": "^0.7.3",
+    "openlayers": "^3.1.0-pre.2",
+    "zepto-browserify": "^1.1.3-0"
+  },
+  "devDependencies": {
+    "catw": "*",
+    "watchify": "*",
+    "browserify": "*",
+    "less": "*",
+    "st": "*"
+  },
+  "browser": {
+    "openlayers": "./build/ol.min.js"
+  }
+}

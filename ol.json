@@ -1,0 +1,41 @@
+{
+  "exports": [
+    "ol.Map",
+    "ol.Map#getEventPixel",
+    "ol.View",
+    "ol.layer.Tile",
+    "ol.source.BingMaps"
+  ],
+  "compile": {
+    "externs": [
+      "externs/bingmaps.js",
+      "externs/closure-compiler.js",
+      "externs/geojson.js",
+      "externs/oli.js",
+      "externs/olx.js",
+      "externs/proj4js.js",
+      "externs/tilejson.js",
+      "externs/topojson.js",
+      "externs/vbarray.js"
+    ],
+    "define": [
+      "goog.dom.ASSUME_STANDARDS_MODE=true",
+      "goog.DEBUG=false",
+      "ol.ENABLE_DOM=false",
+      "ol.ENABLE_PROJ4JS=false",
+      "ol.ENABLE_VECTOR=false",
+      "ol.ENABLE_WEBGL=false"
+    ],
+    "extra_annotation_name": [
+      "api", "observable"
+    ],
+    "jscomp_off": [
+      "es5Strict"
+    ],
+    "compilation_level": "ADVANCED",
+    "output_wrapper": "(function(window){var ROOT = {}; %output%; module.exports = ROOT.ol;})(global);",
+    "use_types_for_optimization": true,
+    "manage_closure_dependencies": true
+  },
+  "namespace": "ROOT"
+}

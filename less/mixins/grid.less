@@ -1,0 +1,26 @@
+@padding-module: 1em;
+
+.column() {
+  padding-right: 0;
+  float: left;
+}
+
+.module-last() {
+  padding-right: 0;
+}
+
+.full-width()         { .column; width: 100%;  }
+.half-width()         { .column; width: 50%;   }
+
+.third-wide()         { .column; width: 33.33% }
+.two-thirds-wide()    { .column; width: 66.66% }
+
+.quarter-wide()       { .column; width: 25%;   }
+.three-quarter-wide() { .column; width: 75%;   }
+
+.eight-wide()         { .column; width: 12.5%; }
+.seven-eights-wide()  { .column; width: 87.5%; }
+
+.module-wrapper() {
+  .clearfix();
+}
