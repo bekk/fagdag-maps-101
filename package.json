@@ -37,6 +37,6 @@
     "st": "*"
   },
   "browser": {
-    "openlayers": "./build/ol.min.js"
+    "ol": "./build/ol.min.js"
   }
 }

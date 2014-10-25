@@ -9,4 +9,4 @@ var lmap = LeafletMap.create('.map-leaflet');
 var lmarker = lmap.addMarker(places.Blikkboksen);
 lmap.addPopup(lmarker, "Blikkboksen!");
 
-OpenlayersMap.create('.map-openlayers');
+var omap = OpenlayersMap.create('.map-openlayers');

@@ -1,11 +1,5 @@
 {
-  "exports": [
-    "ol.Map",
-    "ol.Map#getEventPixel",
-    "ol.View",
-    "ol.layer.Tile",
-    "ol.source.BingMaps"
-  ],
+  "exports": ["*"],
   "compile": {
     "externs": [
       "externs/bingmaps.js",

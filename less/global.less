@@ -1,3 +1,7 @@
+// http://www.paulirish.com/2012/box-sizing-border-box-ftw/
+html { box-sizing: border-box; }
+*, *:before, *:after { box-sizing: inherit; }
+
 html,
 body {
   height: 100%;
@@ -6,6 +10,8 @@ body {
 }
 
 body {
+  padding: @padding;
+
   background-color: @color-bg;
   color: @color-text;
 }
