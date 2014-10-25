@@ -3,5 +3,10 @@ var $ = require('zepto-browserify').$;
 var LeafletMap = require('./map-leaflet');
 var OpenlayersMap = require('./map-openlayers');
 
-LeafletMap.create('.map-leaflet');
+var places = require('./places');
+
+var lmap = LeafletMap.create('.map-leaflet');
+var lmarker = lmap.addMarker(places.Blikkboksen);
+lmap.addPopup(lmarker, "Blikkboksen!");
+
 OpenlayersMap.create('.map-openlayers');

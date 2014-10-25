@@ -3,32 +3,40 @@ var L = require('leaflet');
 
 L.Icon.Default.imagePath = "images";
 
+var places = require('./places');
+
 module.exports = {
-  create: create
+  create: create,
+  addMarker: addMarker,
+  addPopup: addPopup
 };
 
-function create (selector) {
-  var el = $(selector);
-  var map = L.map(el.get(0)).setView([51.505, -0.09], 13);
+var config = {
+  TileUrl: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  Attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+};
 
-  L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-  }).addTo(map);
-
-  L.marker([51.5, -0.09]).addTo(map)
-  .bindPopup('A pretty CSS3 popup. <br> Easily customizable.')
-  .openPopup();
-}
-
+var map;
 
 function create (selector) {
   var el = $(selector).get(0);
-  var map = new L.map(el);
+  map = L.map(el).setView(places.Blikkboksen, 13);
 
-  var url = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-  var osm = new L.TileLayer(url, {
-    attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-  });
+  var options = {
+    attribution: config.Attribution,
+    maxZoom: 18 // leaflet needs this
+  };
 
-  map.addLayer(osm);
+  L.tileLayer(config.TileUrl, options).addTo(map);
+
+  return this;
 }
+
+function addMarker (latlon) {
+  return L.marker(latlon).addTo(map);
+}
+
+function addPopup (marker, text) {
+  marker.bindPopup(text).openPopup();
+}
+
