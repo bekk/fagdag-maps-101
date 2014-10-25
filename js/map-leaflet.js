@@ -37,6 +37,7 @@ function addMarker (latlon) {
 }
 
 function addPopup (marker, text) {
-  marker.bindPopup(text).openPopup();
+  var options = {};
+  marker.bindPopup(text, options).openPopup();
 }
 
