@@ -10,7 +10,7 @@
     "watch-css": "catw -c 'lessc --include-path=less less/app.less' 'less/**/*.less' -o static/bundle.css -v",
     "watch-js": "watchify js/app.js -o static/bundle.js -dv",
     "watch": "npm run watch-css & npm run watch-js & npm run serve",
-    "build-css": "catw -c 'lessc --include-path=less -' 'less/app.less' > static/bundle.css",
+    "build-css": "lessc --include-path=less less/app.less > static/bundle.css",
     "build-js": "browserify js/app.js > static/bundle.js",
     "build": "npm run build-css && npm run build-js"
   },
