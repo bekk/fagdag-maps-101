@@ -6,7 +6,7 @@ var places = require('./places');
 module.exports = {
   create: create,
   addMarker: addMarker,
-  addPopup: addPopup
+  enablePopups: enablePopups
 };
 
 var config = {
@@ -18,11 +18,12 @@ var map;
 
 function create (selector, latlon) {
   var el = $(selector).get(0);
+  var blikkboksen = ol.proj.transform([latlon[1], latlon[0]], "EPSG:4326", "EPSG:3857");
 
   map = new ol.Map({
     target: el,
     view: new ol.View({
-      center: ol.proj.transform([latlon[1], latlon[0]], "EPSG:4326", "EPSG:3857"),
+      center: blikkboksen,
       zoom: 13
     }),
     controls: ol.control.defaults({ attribution: false }).extend([config.Attribution]),
@@ -32,34 +33,53 @@ function create (selector, latlon) {
   return this;
 }
 
-function addMarker (latlon) {
-  var img = new Image();
-  img.src = 'images/marker-icon.png';
-
-  var marker = new ol.Overlay({
-    element: img,
-    position: ol.proj.transform([latlon[1], latlon[0]], "EPSG:4326", "EPSG:3857"),
-    positioning: 'center-center',
-    stopEvent: false
+function addMarker (latlon, text) {
+  var loc = ol.proj.transform([latlon[1], latlon[0]], "EPSG:4326", "EPSG:3857");
+  var iconFeature = new ol.Feature({ geometry: new ol.geom.Point(loc), text: text });
+  var iconStyle = new ol.style.Style({
+    image: new ol.style.Icon({
+      anchor: [13, 41], // half icon height, whole icon height
+      anchorXUnits: 'pixels',
+      anchorYUnits: 'pixels',
+      src: 'images/marker-icon.png'
+    })
   });
-  map.addOverlay(marker);
+  iconFeature.setStyle(iconStyle);
+
+  var vectorSource = new ol.source.Vector({ features: [iconFeature] });
+  var vectorLayer = new ol.layer.Vector({ source: vectorSource });
+  map.addLayer(vectorLayer);
 }
 
 var popup;
-function addPopup (selector, latlon, text) {
+function enablePopups (selector) {
+  var el = $(selector);
   if (!popup) {
     popup = new ol.Overlay({
-      element: $(selector).get(0),
+      element: el,
       positioning: 'bottom-center',
       stopEvent: false,
       insertFirst: false
     });
+
     map.addOverlay(popup);
+
+    map.on('click', e => {
+      var self = this;
+      var feature = map.forEachFeatureAtPixel(e.pixel, (feature, layer) => feature);
+      if (feature) {
+        var geometry = feature.getGeometry();
+        var coord = geometry.getCoordinates();
+        popup.setPosition(coord);
+
+        el.text(feature.get('text'));
+        el.show();
+      }
+      else {
+        el.hide();
+      }
+    });
   }
 
-  var pos = ol.proj.transform([latlon[1], latlon[0]], "EPSG:4326", "EPSG:3857");
-  popup.setPosition(pos);
-
-  popup.getElement().innerHTML = text;
 }
 

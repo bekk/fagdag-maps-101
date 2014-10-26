@@ -7,8 +7,7 @@ var places = require('./places');
 
 module.exports = {
   create: create,
-  addMarker: addMarker,
-  addPopup: addPopup
+  addMarker: addMarker
 };
 
 var config = {
@@ -32,12 +31,9 @@ function create (selector) {
   return this;
 }
 
-function addMarker (latlon) {
-  return L.marker(latlon).addTo(map);
-}
-
-function addPopup (marker, text) {
-  var options = {};
-  marker.bindPopup(text, options).openPopup();
+function addMarker (latlon, text) {
+  return L.marker(latlon)
+          .bindPopup(text)
+          .addTo(map);
 }
 

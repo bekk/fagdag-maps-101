@@ -8,10 +8,10 @@ var Blikkboksen = places.Blikkboksen;
 
 // Leaflet
 var lmap = LeafletMap.create('.map-leaflet', Blikkboksen);
-var lmarker = lmap.addMarker(Blikkboksen);
-lmap.addPopup(lmarker, "Blikkboksen!");
+var lmarker = lmap.addMarker(Blikkboksen, 'Blikkboksen!');
 
 // OpenLayers
 var omap = OpenlayersMap.create('.map-openlayers', Blikkboksen);
-var omarker = omap.addMarker(places.Blikkboksen);
-omap.addPopup('.map-openlayers-popup', Blikkboksen, "Blikkboksen!");
+omap.enablePopups('.map-openlayers-popup');
+
+var omarker = omap.addMarker(Blikkboksen, "Blikkboksen!");

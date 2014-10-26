@@ -1,0 +1,49 @@
+// openlayer styles
+@z-index-popup: 1;
+.map-openlayers-popup {
+  display: none; // hidden by default
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 52px;
+
+  background-color: @color-white;
+  padding: @padding;
+  z-index: @z-index-popup;
+
+  .map-popup-tip();
+}
+
+.map-popup-tip() {
+  @tip-size: 17px;
+  position: relative;
+  &:after {
+    z-index: @z-index-popup - 1;
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: -@tip-size/2;
+    left: 0;
+    right: 0;
+    width: @tip-size;
+    height: @tip-size;
+    margin: 0 auto;
+
+    transform: rotate(45deg);
+    background-color: @color-white;
+  }
+}
+
+
+// leaflet styles
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  border-radius: 0;
+  .no-shadow();
+}
+.leaflet-popup-content {
+  margin: 1em;
+}
+.leaflet-popup-close-button {
+  display: none;
+}
