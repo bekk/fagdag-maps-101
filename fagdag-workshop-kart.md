@@ -2,19 +2,19 @@
 
 # oppgaver
 ## torgeir
-- send mail om teams
-- lag bekk-repo
-- sett opp browserify, less
-- legg inn openlayers, leaflet
-- branch for løsningsforslag
-- legg ved fylker.json og kommuner.json
-- finn kule data
+- [x] send mail om teams
+- [x] lag bekk-repo
+- [x] sett opp browserify, less
+- []x legg inn openlayers, leaflet
+- [ ] branch for løsningsforslag
+- [ ] legg ved fylker.json og kommuner.json
+- [ ] finn kule data
 
 ## rolf
-- forske på leaflet med utm33
-- lage slides for teori?
-- finn kule data
-- skriv confluence-dokument
+- [x] forske på leaflet med utm33
+- [ ] lage slides for teori?
+- [ ] finn kule data
+- [ ] skriv confluence-dokument
 
 --
 
