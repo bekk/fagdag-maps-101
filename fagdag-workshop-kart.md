@@ -5,7 +5,7 @@
 - [x] send mail om teams
 - [x] lag bekk-repo
 - [x] sett opp browserify, less
-- []x legg inn openlayers, leaflet
+- [x] legg inn openlayers, leaflet
 - [ ] branch for løsningsforslag
 - [ ] legg ved fylker.json og kommuner.json
 - [ ] finn kule data
