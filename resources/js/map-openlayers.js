@@ -33,6 +33,7 @@ function create (selector, latlon) {
   return this;
 }
 
+// TODO oppgave 1.2
 function addMarker (latlon, text) {
   var loc = ol.proj.transform([latlon[1], latlon[0]], "EPSG:4326", "EPSG:3857");
   var iconFeature = new ol.Feature({ geometry: new ol.geom.Point(loc), text: text });
@@ -51,6 +52,7 @@ function addMarker (latlon, text) {
   map.addLayer(vectorLayer);
 }
 
+// TODO oppgave 1.3
 var popup;
 function enablePopups (selector) {
   var el = $(selector);
@@ -79,6 +81,4 @@ function enablePopups (selector) {
       }
     });
   }
-
 }
-

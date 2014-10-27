@@ -31,6 +31,7 @@ function create (selector) {
   return this;
 }
 
+// TODO oppgave 1
 function addMarker (latlon, text) {
   return L.marker(latlon)
           .bindPopup(text)
