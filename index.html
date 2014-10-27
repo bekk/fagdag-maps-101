@@ -43,6 +43,9 @@ x
 4. npm run watch
 
 Torgeir går igjennom, og viser forskjell mellom Leaflet og OpenLayers
+Viser to stk bakgrunnskart (uten marker og popup)
+
+Torgeir forklarer oppsett av JavaScript og css m.m
 ---
 # Karttyper
 ##raster vs vector
@@ -50,26 +53,8 @@ Torgeir går igjennom, og viser forskjell mellom Leaflet og OpenLayers
 
 TEGNING SOM VISER HVORDAN KARTTILES BYGGES OPP<br>
 Vise i browser hvordan spørring etter karttiles gjøres (nettloggen)
----
-#Kartlag
-Informasjon om hvordan vi legger et kartlag på toppen av bakgrunnskart 
-*Beskrive at dette er måten vi bygger opp kart på*
-
-##Oppgave
-Hente et enkelt wms-kart (med samme projeksjon) som legges på toppen av Leaflet-kartet vårt.
----
-#Markører og popup
-Fortelle om hvordan dette gjøres
-Legge inn lenke til Leaflet??
-
---
-
-##Oppgave:
-* Lag en markør som viser din posisjon i kartet
-* Få til en popup som skriver ut en tekst om din posisjon
 
 ---
-
 #Projeksjon
 *Kartprojeksjon er den metode man bruker når man på et kart skal overføre Jordens eller et annet rundt himmellegemes overflatetrekk til et flatt kart.*
 
@@ -77,7 +62,45 @@ Legge inn lenke til Leaflet??
 - hva er datum
 - epsg-koder (wgs)
 - ersi
+
 ---
+Oppgave: Hent et koordinat fra Google maps og zoom til koordinatet i OpenLayers kartet
+Skamløs Trondheim-promotering i 10 min
+---
+
+#Markører og popup
+Fortelle om hvordan dette gjøres i Leaflet
+
+Torgeir viser frem Leaflet og OpenLayers API
+Viser Popup i Leaflet (koder live)
+
+##Oppgave 15 min
+Gjør det samme i OpenLayers
+---
+#Andre kartservere
+- geoserver
+- geowebcache
+#Kartlag (wms) som vises på toppen av grunnkartet (featurelag)
+Kartlaget har annen projeksjon
+
+TODO: Finn et featurelag
+
+Sørg for at featurelaget først tegnes i feil projeksjon, og så korrigerer vi det 
+
+##Oppgave:
+Tegn inn featurelaget i Leaflet
+
+Korriger featurelaget
+---
+#Datakilder
+Snakke om geojson, andre ting..?
+
+---
+#Oppgave:
+Hente fra REST-API, hente fra geojson-fil
+**Kumlokk, etc
+
+
 #Vise data fra en projeksjon sammen med data fra andre projeksjoner
 Hvordan dette gjøres i Leaflet
 
@@ -85,6 +108,14 @@ Hvordan dette gjøres i Leaflet
 Lage oppgave for visning av andre data på topp av bakgrunnskart
 
 Burde vi si noe om geojson først - eller sørge for at vi har en versjon som funger out of the box med geojson??
+---
+#Kartlag
+Informasjon om hvordan vi legger et kartlag på toppen av bakgrunnskart 
+*Beskrive at dette er måten vi bygger opp kart på*
+
+##Oppgave
+Hente et enkelt wms-kart (med samme projeksjon) som legges på toppen av Leaflet-kartet vårt.
+
 ---
 #Datakilder
 ###Geoserver
@@ -109,8 +140,7 @@ TODO enkle lenker til features i forskjellige koordinatsystem
 Datakilder kan være
 
 - rest api
-- geoserver
-- geowebcache
+
 - arcgis
 - bekk ansatte bosted?
 
