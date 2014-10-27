@@ -1,6 +1,6 @@
 var $ = require('zepto-browserify').$;
-var LeafletMap = require('./map-leaflet');
-var OpenlayersMap = require('./map-openlayers');
+var LeafletMap = require('./map/map-leaflet');
+var OpenlayersMap = require('./map/map-openlayers');
 
 var places = require('./places');
 var Blikkboksen = places.Blikkboksen;

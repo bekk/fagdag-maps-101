@@ -1,7 +1,7 @@
 var $ = require('zepto-browserify').$;
 var ol = require('ol');
 
-var places = require('./places');
+var places = require('../places');
 
 module.exports = {
   create: create,
@@ -10,7 +10,6 @@ module.exports = {
 };
 
 var config = {
-  TileUrl: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
   Attribution: new ol.control.Attribution({ collapsible: false })
 };
 
@@ -18,13 +17,17 @@ var map;
 
 function create (selector, latlon) {
   var el = $(selector).get(0);
+
+  // TODO oppgave zoom til punkt i
   var blikkboksen = ol.proj.transform([latlon[1], latlon[0]], "EPSG:4326", "EPSG:3857");
 
+  // TODO openlayers kartet skal ikke være zooma til blikkboksen, det er en oppgave
   map = new ol.Map({
     target: el,
     view: new ol.View({
-      center: blikkboksen,
-      zoom: 13
+      // center: [0, 0],
+      center: blikkboksen,// TODO fjern
+      zoom: 3
     }),
     controls: ol.control.defaults({ attribution: false }).extend([config.Attribution]),
     layers: [ new ol.layer.Tile({ source: new ol.source.OSM() }) ]

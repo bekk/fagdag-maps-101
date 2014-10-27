@@ -15,3 +15,11 @@ npm install
 ```
 npm run watch
 ```
+
+## TODO @torgeir
+geojon (fylker, kommuner, twitter?)
+wms-lag i feil projeksjon? toggle lag av og på
+vise data fra ajax, rolf sender kumlokkdata.
+
+## bonus
+clustring

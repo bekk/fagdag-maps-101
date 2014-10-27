@@ -3,7 +3,8 @@ var L = require('leaflet');
 
 L.Icon.Default.imagePath = "images";
 
-var places = require('./places');
+var ajax = require('../ajax');
+var places = require('../places');
 
 module.exports = {
   create: create,
@@ -27,6 +28,10 @@ function create (selector) {
   };
 
   L.tileLayer(config.TileUrl, options).addTo(map);
+
+  ajax.get('js/vendor/fylker.json', function (res) {
+    L.geoJson(res.body).addTo(map);
+  });
 
   return this;
 }
