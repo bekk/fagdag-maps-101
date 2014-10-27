@@ -1,4 +1,4 @@
-# neste møte 14:00 fredag 17. okt
+
 
 # oppgaver
 ## torgeir

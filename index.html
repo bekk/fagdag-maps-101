@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Title</title>
+    <title>Maps 101 - BEKK Hackathon 31.10.2014</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <style type="text/css">
       @import url(http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
@@ -19,78 +19,85 @@
   </head>
   <body>
     <textarea id="source">
+#Maps 101
+##Torgeir Thoresen og Rolf Erik Paulsen
+###Hackathon, 31.oktober 2014
+---
+#GIS - Geografiske Informasjonssystemer
+Samlebetegnelse for all systembehandling som har med geografiske (romlige) data å gjøre
+
+###Wikipedia-definisjon av GIS
+"*datamaskinbaserte systemer som brukes til å registrere, modellere, lagre, hente, manipulere, analysere og presentere geografisk refererte data*"
+---
+#GIS Stack
+
+##LEGGE INN EN TEGNING SOM VISER
+
+##DATASTORE - KARTSERVER - KARTKLIENT
+x
+---
+#Oppgave: Vi starter med et kart
+1. git clone git@github.com:bekk/fagdag-maps-101.git
+2. http://nodejs.org/dist/v0.10.32/node-v0.10.32.pkg
+3. npm install
+4. npm run watch
+
+Torgeir går igjennom, og viser forskjell mellom Leaflet og OpenLayers
+---
+# Karttyper
+##raster vs vector
+##wms vs tiles
+
+TEGNING SOM VISER HVORDAN KARTTILES BYGGES OPP<br>
+Vise i browser hvordan spørring etter karttiles gjøres (nettloggen)
+---
+#Kartlag
+Informasjon om hvordan vi legger et kartlag på toppen av bakgrunnskart 
+*Beskrive at dette er måten vi bygger opp kart på*
+
+##Oppgave
+Hente et enkelt wms-kart (med samme projeksjon) som legges på toppen av Leaflet-kartet vårt.
+---
+#Markører og popup
+Fortelle om hvordan dette gjøres
+Legge inn lenke til Leaflet??
+
 --
 
-a
+##Oppgave:
+* Lag en markør som viser din posisjon i kartet
+* Få til en popup som skriver ut en tekst om din posisjon
 
---
+---
 
-b
+#Projeksjon
+*Kartprojeksjon er den metode man bruker når man på et kart skal overføre Jordens eller et annet rundt himmellegemes overflatetrekk til et flatt kart.*
 
---
-
-# oppgaver
-## torgeir
-- lag bekk-repo
-- branch for løsningsforslag
-- browserify
-- less
-- openlayers
-- leaflet
-- legg ved fylker.json og kommuner.json
-
---
-
-## rolf
-forske på leaflet med utm33
-
---
-
-# teori
-
-## hva er gis?
-
-## bakgrunnskart
-
-### oppgaver
-- få opp et bakgrunnskart
-- vise to bakgrunnskart i forskjellige projeksjoner
-- vise ett med leaflet (web mercator)
-- vise ett med openlayers (utm33)
-- hvorfor ser norge forskjellige ut i kartene?
-
-## muligheter med en kartkomponent
-
-- enkelt vise forskjellige typer data, layers, features, geojson
-- finne location
-- få lat lon basert på klikk i kart
-- vise markers
-- gruppere markers i layers
-- zoome
-
-## kort om data
-
-Formater
-
-- forskjell på raster og vector
-- features, kan ha mer informasjon enn bare lat lon, navn etc.
-- geojson
-- lat lon
-- x y
-
-### oppgave
-
-TODO finn lenke
-
-- vis data fra et feature-lag i leaflet
-- vis data fra et feature-lag i openlayers
-
-## projeksjoner og konvertering mellom de
+##Teori om projeksjon kommer her
 - hva er datum
 - epsg-koder (wgs)
 - ersi
+---
+#Vise data fra en projeksjon sammen med data fra andre projeksjoner
+Hvordan dette gjøres i Leaflet
 
-### oppgaver
+##Oppgave
+Lage oppgave for visning av andre data på topp av bakgrunnskart
+
+Burde vi si noe om geojson først - eller sørge for at vi har en versjon som funger out of the box med geojson??
+---
+#Datakilder
+###Geoserver
+###GeoWebCache
+###ArcGIS
+###OpenStreetMap
+###Google
+
+---
+#Oppgave(r):
+###Finne andre datakilder for å parse og vise i Leaflet
+
+---
 
 TODO enkle lenker til features i forskjellige koordinatsystem
 
