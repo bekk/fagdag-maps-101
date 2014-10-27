@@ -64,9 +64,8 @@ function enablePopups (selector) {
 
     map.addOverlay(popup);
 
-    map.on('click', e => {
-      var self = this;
-      var feature = map.forEachFeatureAtPixel(e.pixel, (feature, layer) => feature);
+    map.on('click', function (e) {
+      var feature = map.forEachFeatureAtPixel(e.pixel, function (feature, layer) { return feature; });
       if (feature) {
         var geometry = feature.getGeometry();
         var coord = geometry.getCoordinates();
