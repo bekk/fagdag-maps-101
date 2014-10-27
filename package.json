@@ -40,7 +40,6 @@
   },
   "browserify": {
     "transform": [
-      "6to5-browserify",
       "browserify-shim"
     ]
   }
