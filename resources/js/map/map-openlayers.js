@@ -168,23 +168,25 @@ var styleFunction = function(feature, resolution) {
 var geojsonLayerFylker;
 function toggleGeojsonFylker () {
   if (geojsonLayerFylker) {
-    map.removeLayer(geojsonLayer);
+    map.removeLayer(geojsonLayerFylker);
     geojsonLayerFylker = undefined;
   }
   else {
-    geojson.fylker(function (fylker) {
-    });
+    var source = new ol.source.GeoJSON({ projection : 'EPSG:3857', url : '/js/vendor/fylker.json' });
+    geojsonLayerFylker = new ol.layer.Vector({ source : source });
+    map.addLayer(geojsonLayerFylker);
   }
 }
 
 var geojsonLayerKommuner;
 function toggleGeojsonKommuner () {
   if (geojsonLayerKommuner) {
-    map.removeLayer(geojsonLayer);
+    map.removeLayer(geojsonLayerKommuner);
     geojsonLayerKommuner = undefined;
   }
   else {
-    geojson.kommuner(function (kommuner) {
-    });
+    var source = new ol.source.GeoJSON({ projection : 'EPSG:3857', url : '/js/vendor/kommuner.json' });
+    geojsonLayerKommuner = new ol.layer.Vector({ source : source });
+    map.addLayer(geojsonLayerKommuner);
   }
 }
