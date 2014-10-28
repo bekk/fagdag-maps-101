@@ -3,12 +3,14 @@ var L = require('leaflet');
 
 L.Icon.Default.imagePath = "images";
 
-var ajax = require('../ajax');
+var geojson = require('../geojson');
 var places = require('../places');
 
 module.exports = {
   create: create,
-  addMarker: addMarker
+  addMarker: addMarker,
+  toggleGeojsonFylker: toggleGeojsonFylker,
+  toggleGeojsonKommuner: toggleGeojsonKommuner
 };
 
 var config = {
@@ -29,10 +31,6 @@ function create (selector) {
 
   L.tileLayer(config.TileUrl, options).addTo(map);
 
-  ajax.get('js/vendor/fylker.json', function (res) {
-    L.geoJson(res.body).addTo(map);
-  });
-
   return this;
 }
 
@@ -43,3 +41,28 @@ function addMarker (latlon, text) {
           .addTo(map);
 }
 
+var geojsonLayerFylker;
+function toggleGeojsonFylker () {
+  if (geojsonLayerFylker) {
+    map.removeLayer(geojsonLayerFylker);
+    geojsonLayerFylker = undefined;
+  }
+  else {
+    geojson.fylker(function (fylker) {
+      geojsonLayerFylker = L.geoJson(fylker).addTo(map);
+    });
+  }
+}
+
+var geojsonLayerKommuner;
+function toggleGeojsonKommuner () {
+  if (geojsonLayerKommuner) {
+    map.removeLayer(geojsonLayerKommuner);
+    geojsonLayerKommuner = undefined;
+  }
+  else {
+    geojson.kommuner(function (kommuner) {
+      geojsonLayerKommuner = L.geoJson(kommuner).addTo(map);
+    });
+  }
+}

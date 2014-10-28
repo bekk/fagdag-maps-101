@@ -1,12 +1,15 @@
 var $ = require('zepto-browserify').$;
 var ol = require('ol');
 
+var geojson = require('../geojson');
 var places = require('../places');
 
 module.exports = {
   create: create,
   addMarker: addMarker,
-  enablePopups: enablePopups
+  enablePopups: enablePopups,
+  toggleGeojsonFylker: toggleGeojsonFylker,
+  toggleGeojsonKommuner: toggleGeojsonKommuner
 };
 
 var config = {
@@ -27,7 +30,7 @@ function create (selector, latlon) {
     view: new ol.View({
       // center: [0, 0],
       center: blikkboksen,// TODO fjern
-      zoom: 3
+      zoom: 4
     }),
     controls: ol.control.defaults({ attribution: false }).extend([config.Attribution]),
     layers: [ new ol.layer.Tile({ source: new ol.source.OSM() }) ]
@@ -82,6 +85,106 @@ function enablePopups (selector) {
       else {
         el.hide();
       }
+    });
+  }
+}
+
+var image = new ol.style.Circle({
+  radius: 5,
+  fill: null,
+  stroke: new ol.style.Stroke({color: 'red', width: 1})
+});
+
+var styles = {
+  'Point': [new ol.style.Style({
+    image: image
+  })],
+  'LineString': [new ol.style.Style({
+    stroke: new ol.style.Stroke({
+      color: 'green',
+      width: 1
+    })
+  })],
+  'MultiLineString': [new ol.style.Style({
+    stroke: new ol.style.Stroke({
+      color: 'green',
+      width: 1
+    })
+  })],
+  'MultiPoint': [new ol.style.Style({
+    image: image
+  })],
+  'MultiPolygon': [new ol.style.Style({
+    stroke: new ol.style.Stroke({
+      color: 'yellow',
+      width: 1
+    }),
+    fill: new ol.style.Fill({
+      color: 'rgba(255, 255, 0, 0.1)'
+    })
+  })],
+  'Polygon': [new ol.style.Style({
+    stroke: new ol.style.Stroke({
+      color: 'blue',
+      lineDash: [4],
+      width: 3
+    }),
+    fill: new ol.style.Fill({
+      color: 'rgba(0, 0, 255, 0.1)'
+    })
+  })],
+  'GeometryCollection': [new ol.style.Style({
+    stroke: new ol.style.Stroke({
+      color: 'magenta',
+      width: 2
+    }),
+    fill: new ol.style.Fill({
+      color: 'magenta'
+    }),
+    image: new ol.style.Circle({
+      radius: 10,
+      fill: null,
+      stroke: new ol.style.Stroke({
+        color: 'magenta'
+      })
+    })
+  })],
+  'Circle': [new ol.style.Style({
+    stroke: new ol.style.Stroke({
+      color: 'red',
+      width: 2
+    }),
+    fill: new ol.style.Fill({
+      color: 'rgba(255,0,0,0.2)'
+    })
+  })]
+};
+
+var styleFunction = function(feature, resolution) {
+  return styles[feature.getGeometry().getType()];
+};
+
+
+var geojsonLayerFylker;
+function toggleGeojsonFylker () {
+  if (geojsonLayerFylker) {
+    map.removeLayer(geojsonLayer);
+    geojsonLayerFylker = undefined;
+  }
+  else {
+    geojson.fylker(function (fylker) {
+    });
+  }
+}
+
+var geojsonLayerKommuner;
+function toggleGeojsonKommuner () {
+  if (geojsonLayerKommuner) {
+    map.removeLayer(geojsonLayer);
+    geojsonLayerKommuner = undefined;
+  }
+  else {
+    geojson.kommuner(function (kommuner) {
     });
   }
 }

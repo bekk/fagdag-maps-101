@@ -7,7 +7,7 @@ module.exports = function () {
 
     var c = require('./config');
 
-    gulp.watch(c.all(c.PATH_INDEX),  ['html']);
+    gulp.watch(c.PATH_INDEX,  ['html']);
     gulp.watch(c.all(c.FOLDER_LESS), ['less']);
     gulp.watch(c.all(c.FOLDER_IMAGES), ['images']);
 

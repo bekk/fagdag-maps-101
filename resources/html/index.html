@@ -8,10 +8,18 @@
   <body>
 
     <div class="map">
+      <ul class="map-control map-control--leaflet">
+        <li><label class="map-control-toggle-geojson-fylker">Toggle geojson layer (fylker.json)<input type="checkbox" /></label></li>
+        <li><label class="map-control-toggle-geojson-kommuner">Toggle geojson layer (kommuner.json)<input type="checkbox" /></label></li>
+      </ul>
       <div class="map-leaflet"></div>
     </div>
 
     <div class="map">
+      <ul class="map-control map-control--openlayers">
+        <li><label class="map-control-toggle-geojson-fylker">Toggle geojson layer (fylker.json)<input type="checkbox" /></label></li>
+        <li><label class="map-control-toggle-geojson-kommuner">Toggle geojson layer (kommuner.json)<input type="checkbox" /></label></li>
+      </ul>
       <div class="map-popup map-openlayers-popup"></div>
       <div class="map-openlayers"></div>
     </div>
