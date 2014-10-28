@@ -1,11 +1,18 @@
 .map {
   .half-width();
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: stretch;
+  position: static;
 }
 
 .map-leaflet,
 .map-openlayers {
-  height: 100%;
+  position: relative;
+  flex: 1;
   border: 1px solid @color-bekk-blue;
 }
 
@@ -15,4 +22,9 @@
 
 .map-openlayers {
   margin-left: @padding/2;
+
+  position: relative;
+  .ol-viewport {
+    position: absolute !important;
+  }
 }
