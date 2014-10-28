@@ -73,19 +73,40 @@ function enablePopups (selector) {
     map.addOverlay(popup);
 
     map.on('click', function (e) {
-      var feature = map.forEachFeatureAtPixel(e.pixel, function (feature, layer) { return feature; });
-      if (feature) {
-        var geometry = feature.getGeometry();
-        var coord = geometry.getCoordinates();
-        popup.setPosition(coord);
+      var found = map.forEachFeatureAtPixel(e.pixel, function (feature, layer) {
+        if (!feature) {
+          return false;
+        }
 
-        el.text(feature.get('text'));
-        el.show();
-      }
-      else {
+        var pos, text, geometry = feature.getGeometry();
+
+        if (layer == geojsonLayerKommuner) {
+          popup.setPosition(ol.extent.getCenter(geometry.getExtent()));
+          showPopup(feature.getProperties().NAVN);
+          return true;
+        }
+        else if (layer == geojsonLayerFylker) {
+          popup.setPosition(ol.extent.getCenter(geometry.getExtent()));
+          showPopup(feature.getProperties().NAVN);
+          return true;
+        }
+        else {
+          popup.setPosition(geometry.getCoordinates());
+          showPopup(feature.get('text'));
+          return true;
+        }
+
+        return false;
+      });
+
+      if (!found) {
         el.hide();
       }
     });
+  }
+
+  function showPopup (text) {
+    el.text(text).show();
   }
 }
 
