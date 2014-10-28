@@ -96,9 +96,11 @@ function toggleGeojsonFylker () {
     geojsonLayerFylker = undefined;
   }
   else {
-    var source = new ol.source.GeoJSON({ projection : 'EPSG:3857', url : '/js/vendor/fylker.json' });
-    geojsonLayerFylker = new ol.layer.Vector({ source : source });
-    map.addLayer(geojsonLayerFylker);
+    geojson.fylker(function (fylker) {
+      var source = new ol.source.GeoJSON({ projection : 'EPSG:3857', object: fylker });
+      geojsonLayerFylker = new ol.layer.Vector({ source : source });
+      map.addLayer(geojsonLayerFylker);
+    });
   }
 }
 
@@ -109,6 +111,7 @@ function toggleGeojsonKommuner () {
     geojsonLayerKommuner = undefined;
   }
   else {
+    // another way
     var source = new ol.source.GeoJSON({ projection : 'EPSG:3857', url : '/js/vendor/kommuner.json' });
     geojsonLayerKommuner = new ol.layer.Vector({ source : source });
     map.addLayer(geojsonLayerKommuner);
