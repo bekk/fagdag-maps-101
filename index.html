@@ -29,14 +29,20 @@ Samlebetegnelse for all systembehandling som har med geografiske (romlige) data 
 ###Wikipedia-definisjon av GIS
 "*datamaskinbaserte systemer som brukes til å registrere, modellere, lagre, hente, manipulere, analysere og presentere geografisk refererte data*"
 ---
-#GIS Stack
-
-##LEGGE INN EN TEGNING SOM VISER
-
-##DATASTORE - KARTSERVER - KARTKLIENT
-x
+#Hovedkomponenter i GIS-stacken
+Lage en skisse for dette!
+##Kartdata
+Raster/Vektor
+Lagres på disk, eller i database (evt også søkemotorer som Solr)
+Snakk om leverandører; kartverket - osm - google 
+##Kartserver
+GeoServer, GeoWebCache, ArcGis Server, MapServer
+Todo: Finn ut nøyaktig hva Google og OSM bruker
+##Kartklient
+Henter data fra kartserver, og viser til brukeren - enten i standalone app eller i webleser
+Leaflet, OpenLayers, Google, ArcGis
 ---
-#Oppgave: Vi starter med et kart
+#Oppgave: Vi starter med et kart hvor hele stacken er på plass
 1. git clone git@github.com:bekk/fagdag-maps-101.git
 2. http://nodejs.org/dist/v0.10.32/node-v0.10.32.pkg
 3. npm install
@@ -47,22 +53,91 @@ Viser to stk bakgrunnskart (uten marker og popup)
 
 Torgeir forklarer oppsett av JavaScript og css m.m
 ---
-# Raster og Vektor-kart
-
+#Kartstacken; kartdata
+##Raster og Vektor-data
+eksempler på hver
+raster: geotiff, ordinære bilder etc
+vektor: shapefile, geojson, gml, json...
 ---
-#WMS og Tiled kart
+#Kartstacken; kartserver
+Kartservere:
+GeoServer, GeoWebCache, ArcGis Server, MapServer: Kort gjennomgang av hver.. (tabell?)
+
+Data som leveres:
+Hovedforskjellen mellom WMS vs Tiles
 <img src="img/tiles-inndeling.png"/>
+VISE SPØRRINGENE I NETTLESEREN FOR TILES 
+---
+#Kartstacken; klienter
+OpenLayers, Leaflet, ArcGisClient, 
 
 ---
-#Projeksjon
+#Hvordan angi en posisjon på kloden?
+##WGS World Geodetic System - WGS 84
+Dette er latitude og longitude (samt altitude) som vi i dag kjenner det fra våre GPSer. Utgangspunktet for beregningen er jordens senter.
+<br><br>
+<div align="center">
+<img src="img/globe.jpg" align="center">
+</div>
+---
+#Hvordan angi en posisjon på et flatt kart?
+##Svar: Projeksjon
 *Kartprojeksjon er den metode man bruker når man på et kart skal overføre Jordens eller et annet rundt himmellegemes overflatetrekk til et flatt kart.*
 
-##Teori om projeksjon kommer her
-- hva er datum
-- epsg-koder (wgs)
-- ersi
+
+**Problemstilling
+Rund jord -> flat skjerm/papir
+<br><br>
+<div align="center">
+<img src="img/projeksjoner.jpg">
+</div>
+???
+
+Projections are what we call the mathematical equations that do the trick of turning the world into some flat shape that fits on a printout or a computer screen. 
+It’s a messy task to do, this transformation - there’s no way to smoosh the world onto a screen without distorting it in some way. 
+You either lose direction, or relative size, or come out with something very weird looking.
+
+???
 
 ---
+#WebMercator projeksjon
+Dette er "defacto"-standard for projeksjon i webapplikasjoner. Denne brukes av Google Maps, Open Street Map, Bing Maps, Mapquest og mange andre.
+
+##Kjært barn har mange navn...
+*Web Mercator, Google Web Mercator, Spherical Mercator, WGS 84 Web Mercator, WGS 84/Pseuco-Mercator....*
+
+##... og mange id'er
+*EPSG:900913, EPSG:900913, EPSG:3785, EPSG:3857, EPSG:102113, EPSG:102100, EPSG:41001 og ESRI:54004*
+
+##Korrekt i dag er: 
+
+???
+
+Mye enklere å beregne, men unøyaktig rundt polene
+
+???
+
+---
+#UTM - Projeksjon
+Universal Transverse Mercator coordinate system
+
+I norge er UTM (sone 32 og 33) utbredt, og brukes i stor grad av blant annet Kartverket. Gir ett eget koordinatsystem (x,y) innefor hver "rute"
+
+
+<br><br>
+<div align="center">
+<img src="img/utm-europa.png">
+</div>
+
+???
+
+Forklare EPSG-navnet
+The EPSG Geodetic Parameter Dataset is a structured dataset of Coordinate Reference Systems and Coordinate Transformations, accessible through this online registry
+
+???
+
+---
+
 Oppgave: Hent et koordinat fra Google maps og zoom til koordinatet i OpenLayers kartet
 Skamløs Trondheim-promotering i 10 min
 ---
@@ -98,7 +173,6 @@ Snakke om geojson, andre ting..?
 #Oppgave:
 Hente fra REST-API, hente fra geojson-fil
 **Kumlokk, etc
-
 
 #Vise data fra en projeksjon sammen med data fra andre projeksjoner
 Hvordan dette gjøres i Leaflet
