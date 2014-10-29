@@ -102,6 +102,7 @@ You either lose direction, or relative size, or come out with something very wei
 ---
 #WebMercator projeksjon
 Dette er "defacto"-standard for projeksjon i webapplikasjoner. Denne brukes av Google Maps, Open Street Map, Bing Maps, Mapquest og mange andre.
+Projeksjonen er i stor grad identisk med "ordinær" WGS84, dvs vanlig Latitude og Longitude
 
 ##Kjært barn har mange navn...
 *Web Mercator, Google Web Mercator, Spherical Mercator, WGS 84 Web Mercator, WGS 84/Pseuco-Mercator....*
@@ -109,7 +110,7 @@ Dette er "defacto"-standard for projeksjon i webapplikasjoner. Denne brukes av G
 ##... og mange id'er
 *EPSG:900913, EPSG:900913, EPSG:3785, EPSG:3857, EPSG:102113, EPSG:102100, EPSG:41001 og ESRI:54004*
 
-##Korrekt i dag er: 
+##Korrekt i dag er: EPSG:3857
 
 ???
 
@@ -121,8 +122,9 @@ Mye enklere å beregne, men unøyaktig rundt polene
 #UTM - Projeksjon
 Universal Transverse Mercator coordinate system
 
-I norge er UTM (sone 32 og 33) utbredt, og brukes i stor grad av blant annet Kartverket. Gir ett eget koordinatsystem (x,y) innefor hver "rute"
+Deler jorden inn i 60 vertikale soner á 6 grader.
 
+I norge er UTM (sone 32 og 33) utbredt, og brukes i stor grad av blant annet Kartverket. Gir ett eget koordinatsystem (x,y) innefor hver "rute". Dette koordinatsystemet benytter meter som enhet, så lengde og areal er "lett" å beregne.
 
 <br><br>
 <div align="center">
@@ -134,7 +136,45 @@ I norge er UTM (sone 32 og 33) utbredt, og brukes i stor grad av blant annet Kar
 Forklare EPSG-navnet
 The EPSG Geodetic Parameter Dataset is a structured dataset of Coordinate Reference Systems and Coordinate Transformations, accessible through this online registry
 
+Bruker WGS 84 ellipsiode 
+
+A Transverse Mercator projection results in extreme distortion in polar areas
+Begrenset til 84 grader nord, og 80 grader sør. Utenfor dette brukes UPS Universal Polar Stereographic
+
+20 vertikale soner på 8 grader hver (A - U)
+
+Easting = x
+Northing = y
+
+
 ???
+
+---
+Proj4Leaflet
+
+PROJCS["WGS 84 / UTM zone 33N",
+    GEOGCS["WGS 84",
+        DATUM["WGS_1984",
+            SPHEROID["WGS 84",6378137,298.257223563,
+                AUTHORITY["EPSG","7030"]],
+            AUTHORITY["EPSG","6326"]],
+        PRIMEM["Greenwich",0,
+            AUTHORITY["EPSG","8901"]],
+        UNIT["degree",0.01745329251994328,
+            AUTHORITY["EPSG","9122"]],
+        AUTHORITY["EPSG","4326"]],
+    UNIT["metre",1,
+        AUTHORITY["EPSG","9001"]],
+    PROJECTION["Transverse_Mercator"],
+    PARAMETER["latitude_of_origin",0],
+    PARAMETER["central_meridian",15],
+    PARAMETER["scale_factor",0.9996],
+    PARAMETER["false_easting",500000],
+    PARAMETER["false_northing",0],
+    AUTHORITY["EPSG","32633"],
+    AXIS["Easting",EAST],
+    AXIS["Northing",NORTH]]
+
 
 ---
 
