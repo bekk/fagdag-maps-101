@@ -42,22 +42,49 @@ Todo: Finn ut nøyaktig hva Google og OSM bruker
 Henter data fra kartserver, og viser til brukeren - enten i standalone app eller i webleser
 Leaflet, OpenLayers, Google, ArcGis
 ---
-#Oppgave: Vi starter med et kart hvor hele stacken er på plass
+#Oppgave 
+
+Vi starter med et kart hvor hele stacken er på plass
+
+Gjør følgende:
+
 1. git clone git@github.com:bekk/fagdag-maps-101.git
 2. http://nodejs.org/dist/v0.10.32/node-v0.10.32.pkg
 3. npm install
 4. npm run watch
+5. Gå til localhost:3000
+
+---
+
+# Vi ser på koden
+
+???
 
 Torgeir går igjennom, og viser forskjell mellom Leaflet og OpenLayers
 Viser to stk bakgrunnskart (uten marker og popup)
 
 Torgeir forklarer oppsett av JavaScript og css m.m
+
+---
+
+# API
+
+## Leaflet 0.7.6
+http://leafletjs.com/reference.html
+
+## OpenLayers 3
+http://openlayers.org/en/v3.0.0/apidoc
+
 ---
 #Kartstacken; kartdata
 ##Raster og Vektor-data
 eksempler på hver
 raster: geotiff, ordinære bilder etc
 vektor: shapefile, geojson, gml, json...
+
+???
+Torgeir viser frem nettloggen for tiles slik at vi ser /x/y/z-spørringen
+
 ---
 #Kartstacken; kartserver
 Kartservere:
@@ -69,7 +96,11 @@ Hovedforskjellen mellom WMS vs Tiles
 VISE SPØRRINGENE I NETTLESEREN FOR TILES 
 ---
 #Kartstacken; klienter
-OpenLayers, Leaflet, ArcGisClient, 
+OpenLayers, Leaflet, ArcGisClient, Google, MapBox
+
+???
+
+Torgeir: litt erfaringer fra et par av klientene
 
 ---
 #Hvordan angi en posisjon på kloden?
@@ -85,11 +116,10 @@ Dette er latitude og longitude (samt altitude) som vi i dag kjenner det fra vår
 *Kartprojeksjon er den metode man bruker når man på et kart skal overføre Jordens eller et annet rundt himmellegemes overflatetrekk til et flatt kart.*
 
 
-**Problemstilling
-Rund jord -> flat skjerm/papir
+Problemstilling er å representere en rund jord på en flat skjerm/papir
 <br><br>
 <div align="center">
-<img src="img/projeksjoner.jpg">
+<img src="img/projeksjoner.jpg" width="650px">
 </div>
 ???
 
@@ -111,12 +141,34 @@ Projeksjonen er i stor grad identisk med "ordinær" WGS84, dvs vanlig Latitude o
 *EPSG:900913, EPSG:900913, EPSG:3785, EPSG:3857, EPSG:102113, EPSG:102100, EPSG:41001 og ESRI:54004*
 
 ##Korrekt i dag er: EPSG:3857
-
+	
 ???
 
 Mye enklere å beregne, men unøyaktig rundt polene
 
-???
+---
+#Forklare CRS og SRS
+---
+
+# Oppgave
+
+Leaflet zoomer allerede til Blikkboksen. Det er enkelt fordi: 
+- antar at bakgrunnskart er i WebMercator (EPSG:3857)
+- APIet tar alle koordinater i WGS84 (EPSG:4326)
+
+
+OpenLayers forventer at koordinatene er i samme projeksjon som bakgrunnskartet
+
+--
+
+## Zoom til Blikkboksen i Openlayers
+
+- Blikkboksen-koordinatene er i WGS84 (EPSG:4326)
+- Bakgrunnskartet er i WebMercator (EPSG:3857)
+
+**Hint**: metoden `ol.proj.transform()` konverterer mellom projeksjoner
+
+
 
 ---
 #UTM - Projeksjon
@@ -128,8 +180,10 @@ I norge er UTM (sone 32 og 33) utbredt, og brukes i stor grad av blant annet Kar
 
 <br><br>
 <div align="center">
-<img src="img/utm-europa.png">
+<img src="img/utm-europa.png" width="650px">
 </div>
+x 
+
 
 ???
 
@@ -146,40 +200,26 @@ Begrenset til 84 grader nord, og 80 grader sør. Utenfor dette brukes UPS Univer
 Easting = x
 Northing = y
 
+---
+
+# Oppgave
+
+Her er et koordinat i UTM33: `[262030, 6649354]` 
+
+Hvor er dette?
+
+Zoom til det i begge kart 
+
+##Hint:
+Transformasjonskoden for UTM33 er EPSG:32633
+
+Hverken OpenLayers eller Leaflet støtter denne projeksjonen "out of the box". 
+Formelen som kan brukes sammen med proj4 kan hentes på http://epsg.io
 
 ???
 
----
-Proj4Leaflet
+Torgeir viser frem hvor i koden man skal zoome
 
-PROJCS["WGS 84 / UTM zone 33N",
-    GEOGCS["WGS 84",
-        DATUM["WGS_1984",
-            SPHEROID["WGS 84",6378137,298.257223563,
-                AUTHORITY["EPSG","7030"]],
-            AUTHORITY["EPSG","6326"]],
-        PRIMEM["Greenwich",0,
-            AUTHORITY["EPSG","8901"]],
-        UNIT["degree",0.01745329251994328,
-            AUTHORITY["EPSG","9122"]],
-        AUTHORITY["EPSG","4326"]],
-    UNIT["metre",1,
-        AUTHORITY["EPSG","9001"]],
-    PROJECTION["Transverse_Mercator"],
-    PARAMETER["latitude_of_origin",0],
-    PARAMETER["central_meridian",15],
-    PARAMETER["scale_factor",0.9996],
-    PARAMETER["false_easting",500000],
-    PARAMETER["false_northing",0],
-    AUTHORITY["EPSG","32633"],
-    AXIS["Easting",EAST],
-    AXIS["Northing",NORTH]]
-
-
----
-
-Oppgave: Hent et koordinat fra Google maps og zoom til koordinatet i OpenLayers kartet
-Skamløs Trondheim-promotering i 10 min
 ---
 
 #Markører og popup
@@ -229,15 +269,9 @@ Informasjon om hvordan vi legger et kartlag på toppen av bakgrunnskart
 ##Oppgave
 Hente et enkelt wms-kart (med samme projeksjon) som legges på toppen av Leaflet-kartet vårt.
 
----
-#Datakilder
-###Geoserver
-###GeoWebCache
-###ArcGIS
-###OpenStreetMap
-###Google
 
 ---
+
 #Oppgave(r):
 ###Finne andre datakilder for å parse og vise i Leaflet
 
