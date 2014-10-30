@@ -124,6 +124,7 @@ function toggleGeojsonFylker () {
   }
 }
 
+
 // oppgave
 //
 // hint:
@@ -143,6 +144,7 @@ function toggleGeojsonKommuner () {
     map.addLayer(geojsonLayerKommuner);
   }
 }
+
 
 // oppgave
 // http://openlayers.org/en/v3.0.0/apidoc/ol.Overlay.html

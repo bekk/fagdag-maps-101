@@ -44,6 +44,7 @@ function centerTo (point) {
   map.setView(point, 18); // leaflet apiet bruker lat-lon
 }
 
+
 // oppgave
 // https://github.com/proj4js/proj4js#using
 //
