@@ -28,6 +28,17 @@ Samlebetegnelse for all systembehandling som har med geografiske (romlige) data 
 
 ###Wikipedia-definisjon av GIS
 "*datamaskinbaserte systemer som brukes til å registrere, modellere, lagre, hente, manipulere, analysere og presentere geografisk refererte data*"
+
+???
+
+Forklare dagen:
+Vi har teori og oppgaver/implementasjon om hverandre. Hovedvekt på teori i starten, og mer implementasjon på slutten.
+
+Vi har prøvd å tilrettelegge javascript-koden slik at det skal være relativt enkelt å starte uavhengig av javascript-nivå.
+
+Torgeir sier mer om koden etterhvert.
+
+
 ---
 #Hovedkomponenter i GIS-stacken
 
@@ -190,8 +201,6 @@ Projeksjonen er i stor grad identisk med "ordinær" WGS84, dvs vanlig Latitude o
 Mye enklere å beregne, men unøyaktig rundt polene
 
 ---
-#Forklare CRS og SRS
----
 
 # Oppgave
 
@@ -274,25 +283,7 @@ Viser Popup i Leaflet (koder live)
 ##Oppgave 15 min
 Gjør det samme i OpenLayers
 ---
-#Andre kartservere
-- geoserver
-- geowebcache
-#Kartlag (wms) som vises på toppen av grunnkartet (featurelag)
-Kartlaget har annen projeksjon
 
-TODO: Finn et featurelag
-
-Sørg for at featurelaget først tegnes i feil projeksjon, og så korrigerer vi det 
-
-##Oppgave:
-Tegn inn featurelaget i Leaflet
-
-Korriger featurelaget
----
-#Datakilder
-Snakke om geojson, andre ting..?
-
----
 #Oppgave:
 Hente fra REST-API, hente fra geojson-fil
 **Kumlokk, etc
@@ -320,45 +311,16 @@ Hente et enkelt wms-kart (med samme projeksjon) som legges på toppen av Leaflet
 
 ---
 
-TODO enkle lenker til features i forskjellige koordinatsystem
-
-- vise noe data som har riktig koordinatsystem i openlayers
-- vis samme data i leaflet, som krever en annen projeksjon
-
-## datakilder
-
-Datakilder kan være
-
-- rest api
-
-- arcgis
-- bekk ansatte bosted?
-
-TODO artige datakilder
+# datakilder
 - ssb - http://data.ssb.no/api/
 - vegkart - http://vegvesen.no/nvdb/api/
 
-Gå gjennom
+---
+#Takk for oss :-)
+<br><br>
+###Si din mening
+https://survs.com/survey/zh5jb1cqrp
 
-- geoserver
-- rest api
-
-### oppgaver
-
-TODO her må vi lage oppgaver tilhørende hvert av datakildene og legge til rette for det i javascriptklienten (ajax ++)
-
-
-# Extras, for de raske
-
-## clustring av data?
-## styling
-## vise fylker og kommuner som er klikkbare
-## vise obskure stats for forskjellige fylker kommuner
-## tegning i kart, ta vare på geometrien
-
-## hvilke kart?
-- kartverket (åpent gråtonekart, kan hente bakgrunnskart i utm33 så vi får en annen projeksjon)
-- open street maps 3
     </textarea>
     <script src="http://gnab.github.io/remark/downloads/remark-latest.min.js" type="text/javascript">
     </script>
