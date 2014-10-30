@@ -15,26 +15,26 @@ var EPSG_UTM33 = "+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs
 var leafletControl = new MapControl('.map-control--leaflet');
 var leafletMap = LeafletMap.create('.map-leaflet', Blikkboksen);
 
-// TODO oppgave
+// oppgave
 var leafletMarker = leafletMap.addMarker(Blikkboksen, 'Blikkboksen!');
 
-// TODO oppgave
+// oppgave
 leafletControl.on('zoom-til-blikkboksen', function () {
   leafletMap.zoomToLatLon(places.Blikkboksen);
 });
 
-// TODO oppgave
+// oppgave
 leafletControl.on('zoom-til-utm33-koordinat', function () {
   var pointInUtm33Wgs84 = [262030, 6649354];
   leafletMap.zoomToXY(pointInUtm33Wgs84, EPSG_UTM33, "EPSG:4326");
 });
 
-// TODO oppgave
+// oppgave
 leafletControl.on('toggle-geojson-fylker', function (onOrOff) {
   leafletMap.toggleGeojsonFylker();
 });
 
-// TODO oppgave
+// oppgave
 leafletControl.on('toggle-geojson-kommuner', function (onOrOff) {
   leafletMap.toggleGeojsonKommuner();
 });
@@ -44,30 +44,30 @@ leafletControl.on('toggle-geojson-kommuner', function (onOrOff) {
 var olControl = new MapControl('.map-control--openlayers');
 var olMap = OpenlayersMap.create('.map-openlayers', Blikkboksen);
 
-// TODO oppgave
+// oppgave
 var olMarker = olMap.addMarker(Blikkboksen, "Blikkboksen!");
 
-// TODO oppgave
+// oppgave
 olControl.on('zoom-til-blikkboksen', function () {
   olMap.zoomToLatLon(places.Blikkboksen, "EPSG:4326", "EPSG:3857");
 });
 
-// TODO oppgave
+// oppgave
 olControl.on('zoom-til-utm33-koordinat', function () {
   var pointInUtm33Wgs84 = [262030, 6649354];
   olMap.zoomToXY(pointInUtm33Wgs84, EPSG_UTM33, "EPSG:3857");
 });
 
-// TODO oppgave
+// oppgave
 olControl.on('toggle-geojson-fylker', function (onOrOff) {
   olMap.toggleGeojsonFylker();
 });
 
-// TODO oppgave
+// oppgave
 olControl.on('toggle-geojson-kommuner', function (onOrOff) {
   olMap.toggleGeojsonKommuner();
 });
 
-// TODO oppgave
+// oppgave
 olMap.enablePopups('.map-openlayers-popup');
 

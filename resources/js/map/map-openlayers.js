@@ -19,8 +19,8 @@ var config = {
   Attribution: new ol.control.Attribution({ collapsible: false })
 };
 
-var map;
 
+var map;
 function create (selector, latlon) {
   var el = $(selector).get(0);
 
@@ -34,23 +34,46 @@ function create (selector, latlon) {
   return this;
 }
 
-// TODO oppgave
+
+// oppgave
+// https://github.com/proj4js/proj4js#using
+//
+// hint:
+// - må konvertere fra
+// - proj4() tar inn [lon, lat] og returnerer [x, y]
 function zoomToLatLon (latlon, fromProjection, toProjection) {
   var lonlat = [latlon[1], latlon[0]];
-  var xy = proj4(fromProjection, toProjection, lonlat); // proj4 bruker lon, lat
+  var xy = proj4(fromProjection, toProjection, lonlat);
   map.setView(new ol.View({ center: xy, zoom: 18 }));
 }
 
-// TODO oppgave
+
+// oppgave
+// https://github.com/proj4js/proj4js#using
+//
+// hint:
+// - må konvertere fra
+// - proj4() tar inn [x, y] og returnerer [x, y]
 function zoomToXY (xy, fromProjection, toProjection) {
-  xy = proj4(fromProjection, toProjection, xy); // proj4 bruker x, y
+  xy = proj4(fromProjection, toProjection, xy);
   map.setView(new ol.View({ center: xy, zoom: 18 }));
 }
 
-// TODO oppgave
+
+// oppgave
+// http://openlayers.org/en/v3.0.0/examples/icon.js
+// http://openlayers.org/en/v3.0.0/apidoc/ol.Feature.html
+//
+// hint:
+// - må konvertere fra
+// - kan projisere,  enten med openlayers eller proj4
 function addMarker (latlon, text) {
-  var loc = ol.proj.transform([latlon[1], latlon[0]], "EPSG:4326", "EPSG:3857");
-  var iconFeature = new ol.Feature({ geometry: new ol.geom.Point(loc), text: text });
+  // var xy = ol.proj.transform([latlon[1], latlon[0]], "EPSG:4326", "EPSG:3857");
+  // eller
+  var xy = proj4("EPSG:4326", "EPSG:3857", [latlon[1], latlon[0]]);
+
+  var iconFeature = new ol.Feature({ geometry: new ol.geom.Point(xy), text: text });
+
   var iconStyle = new ol.style.Style({
     image: new ol.style.Icon({
       anchor: [13, 41], // half icon height, whole icon height
@@ -66,7 +89,59 @@ function addMarker (latlon, text) {
   map.addLayer(vectorLayer);
 }
 
-// TODO oppgave
+
+// oppgave
+// http://openlayers.org/en/v3.0.0/examples/geojson.html
+//
+// hint:
+// - geojson.fylker(callback) laster ned `fylker.json` og kaller callback med resultatet
+// - må angi `projection` og features til ol.source.GeoJSON
+var geojsonLayerFylker;
+function toggleGeojsonFylker () {
+  if (geojsonLayerFylker) {
+    map.removeLayer(geojsonLayerFylker);
+    geojsonLayerFylker = undefined;
+  }
+  else {
+    geojson.fylker(function (fylker) {
+      var source = new ol.source.GeoJSON({ projection : 'EPSG:3857', object: fylker });
+      geojsonLayerFylker = new ol.layer.Vector({ source : source });
+      map.addLayer(geojsonLayerFylker);
+    });
+  }
+}
+
+// oppgave
+//
+// hint:
+// - geojson.kommuner(callback) laster ned `kommuner.json` og kaller callback med resultatet
+// - må angi `projection` til ol.source.GeoJSON
+// - ol.source.GeoJson kan også ta url til en geojson-fil, feks `/js/vendor/kommuner.json`
+var geojsonLayerKommuner;
+function toggleGeojsonKommuner () {
+  if (geojsonLayerKommuner) {
+    map.removeLayer(geojsonLayerKommuner);
+    geojsonLayerKommuner = undefined;
+  }
+  else {
+    // another way
+    var source = new ol.source.GeoJSON({ projection : 'EPSG:3857', url : '/js/vendor/kommuner.json' });
+    geojsonLayerKommuner = new ol.layer.Vector({ source : source });
+    map.addLayer(geojsonLayerKommuner);
+  }
+}
+
+// oppgave
+// http://openlayers.org/en/v3.0.0/apidoc/ol.Overlay.html
+// http://openlayers.org/en/v3.0.0/examples/popup.html
+//
+// hint:
+// - mer omfattende
+// - html for en openlayers popup ligger i index.html
+// - popupen må skjules/vises manuelt
+// - kan lytte på `map.on('click', function (e) { ... });` og lese ut hvilke features man har klikket på fra eventet
+// - popupen må flyttes rundt i kartet
+// - `feature.getCoordinates()` inneholder informasjon om en enkelt feature sin posisjon
 var popup;
 function enablePopups (selector) {
   var el = $(selector);
@@ -115,36 +190,5 @@ function enablePopups (selector) {
 
   function showPopup (text) {
     el.text(text).show();
-  }
-}
-
-// TODO oppgave
-var geojsonLayerFylker;
-function toggleGeojsonFylker () {
-  if (geojsonLayerFylker) {
-    map.removeLayer(geojsonLayerFylker);
-    geojsonLayerFylker = undefined;
-  }
-  else {
-    geojson.fylker(function (fylker) {
-      var source = new ol.source.GeoJSON({ projection : 'EPSG:3857', object: fylker });
-      geojsonLayerFylker = new ol.layer.Vector({ source : source });
-      map.addLayer(geojsonLayerFylker);
-    });
-  }
-}
-
-// TODO oppgave
-var geojsonLayerKommuner;
-function toggleGeojsonKommuner () {
-  if (geojsonLayerKommuner) {
-    map.removeLayer(geojsonLayerKommuner);
-    geojsonLayerKommuner = undefined;
-  }
-  else {
-    // another way
-    var source = new ol.source.GeoJSON({ projection : 'EPSG:3857', url : '/js/vendor/kommuner.json' });
-    geojsonLayerKommuner = new ol.layer.Vector({ source : source });
-    map.addLayer(geojsonLayerKommuner);
   }
 }

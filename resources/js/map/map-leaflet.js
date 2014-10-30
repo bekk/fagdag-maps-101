@@ -14,7 +14,7 @@ module.exports = {
   toggleGeojsonKommuner: toggleGeojsonKommuner
 };
 
-L.Icon.Default.imagePath = "images"; // leaflet needs this
+L.Icon.Default.imagePath = "images"; // leaflet needs this to work
 
 var config = {
   TileUrl: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -29,7 +29,7 @@ function create (selector) {
 
   var options = {
     attribution: config.Attribution,
-    maxZoom: 18 // leaflet needs this
+    maxZoom: 18 // leaflet needs this to work
   };
 
   L.tileLayer(config.TileUrl, options).addTo(map);
@@ -37,26 +37,40 @@ function create (selector) {
   return this;
 }
 
-// TODO oppgave
+
+// http://leafletjs.com/reference.html#map-set-methods
 function zoomToLatLon (point, fromProjection, toProjection) {
-  map.setView(point, 18); // leaflet bruker lat-lon
+  map.setView(point, 18); // leaflet apiet bruker lat-lon
 }
 
-// TODO oppgave
+
+// oppgave
+// https://github.com/proj4js/proj4js#using
+//
+// hint:
+// - må konvertere fra
+// - proj4() tar inn [x, y] og returnerer [lon, lat]
 function zoomToXY (xy, fromProjection, toProjection) {
-  var lonlat = proj4(fromProjection, toProjection, xy); // proj4 bruker x, y
+  var lonlat = proj4(fromProjection, toProjection, xy);
   var latlon = [lonlat[1], lonlat[0]];
   map.setView(latlon, 18);
 }
 
-// TODO oppgave
+
+// oppgave
+// http://leafletjs.com/reference.html#marker
 function addMarker (latlon, text) {
   return L.marker(latlon)
           .bindPopup(text)
           .addTo(map);
 }
 
-// TODO oppgave
+
+// oppgave
+// http://leafletjs.com/reference.html#geojson
+//
+// hint:
+// - geojson.fylker(callback) laster ned `fylker.json` og kaller callback med resultatet
 var geojsonLayerFylker;
 function toggleGeojsonFylker () {
   if (geojsonLayerFylker) {
@@ -70,7 +84,12 @@ function toggleGeojsonFylker () {
   }
 }
 
-// TODO oppgave
+
+// oppgave
+// http://leafletjs.com/reference.html#geojson
+//
+// hint:
+// - geojson.kommuner(callback) laster ned `kommuner.json` og kaller callback med resultatet
 var geojsonLayerKommuner;
 function toggleGeojsonKommuner () {
   if (geojsonLayerKommuner) {
