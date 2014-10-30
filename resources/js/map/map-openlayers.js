@@ -2,13 +2,15 @@ var $ = require('zepto-browserify').$;
 var ol = require('ol');
 var proj4 = require('proj4');
 
+var projections = require('./projections');
 var geojson = require('../geojson');
 var places = require('../places');
 
 module.exports = {
   create: create,
-  zoomToLatLon: zoomToLatLon,
-  zoomToXY: zoomToXY,
+  centerTo: centerTo,
+  convertFromWgs84ToWebMercator: convertFromWgs84ToWebMercator,
+  convertFromUtm33ToWebMercator: convertFromUtm33ToWebMercator,
   addMarker: addMarker,
   toggleGeojsonFylker: toggleGeojsonFylker,
   toggleGeojsonKommuner: toggleGeojsonKommuner,
@@ -18,7 +20,6 @@ module.exports = {
 var config = {
   Attribution: new ol.control.Attribution({ collapsible: false })
 };
-
 
 var map;
 function create (selector) {
@@ -39,15 +40,26 @@ function create (selector) {
 
 
 // oppgave
+// http://openlayers.org/en/v3.0.0/apidoc/ol.Map.html
+function centerTo (xy) {
+  map.setView(new ol.View({ center: xy, zoom: 18 }));
+}
+
+
+// oppgave
 // https://github.com/proj4js/proj4js#using
 //
 // hint:
 // - må konvertere fra WGS84 (Lat/lon - EPSG:4326) til WebMercator (EPSG:3857)
 // - proj4() tar inn [lon, lat] og returnerer [x, y]
-function zoomToLatLon (latlon, fromProjection, toProjection) {
+function convertFromWgs84ToWebMercator (latlon) {
   var lonlat = [latlon[1], latlon[0]];
-  var xy = proj4(fromProjection, toProjection, lonlat);
-  map.setView(new ol.View({ center: xy, zoom: 18 }));
+
+  // var xy = ol.proj.transform(lonlat, projections.WGS84, projections.WebMercator);;
+  // eller
+  var xy = proj4(projections.WGS84, projections.WebMercator, lonlat);
+
+  return xy;
 }
 
 
@@ -57,9 +69,9 @@ function zoomToLatLon (latlon, fromProjection, toProjection) {
 // hint:
 // - må konvertere fra UTM33 (EPSG:32633) til WebMercator (EPSG:3857)
 // - proj4() tar inn [x, y] og returnerer [x, y]
-function zoomToXY (xy, fromProjection, toProjection) {
-  xy = proj4(fromProjection, toProjection, xy);
-  map.setView(new ol.View({ center: xy, zoom: 18 }));
+function convertFromUtm33ToWebMercator (xy) {
+  xy = proj4(projections.UTM33, projections.WebMercator, xy);
+  return xy;
 }
 
 
@@ -71,9 +83,7 @@ function zoomToXY (xy, fromProjection, toProjection) {
 // - må konvertere fra WGS84 (Lat/lon - EPSG:4326) til WebMercator (EPSG:3857)
 // - kan projisere,  enten med openlayers eller proj4
 function addMarker (latlon, text) {
-  // var xy = ol.proj.transform([latlon[1], latlon[0]], "EPSG:4326", "EPSG:3857");
-  // eller
-  var xy = proj4("EPSG:4326", "EPSG:3857", [latlon[1], latlon[0]]);
+  var xy = convertFromWgs84ToWebMercator(latlon);
 
   var iconFeature = new ol.Feature({ geometry: new ol.geom.Point(xy), text: text });
 

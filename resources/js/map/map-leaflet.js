@@ -2,13 +2,14 @@ var $ = require('zepto-browserify').$;
 var L = require('leaflet');
 var proj4 = require('proj4');
 
+var projections = require('./projections');
 var geojson = require('../geojson');
 var places = require('../places');
 
 module.exports = {
   create: create,
-  zoomToLatLon: zoomToLatLon,
-  zoomToXY: zoomToXY,
+  centerTo: centerTo,
+  convertFromUtm33ToWgs84: convertFromUtm33ToWgs84,
   addMarker: addMarker,
   toggleGeojsonFylker: toggleGeojsonFylker,
   toggleGeojsonKommuner: toggleGeojsonKommuner
@@ -37,11 +38,11 @@ function create (selector) {
 }
 
 
+// oppgave
 // http://leafletjs.com/reference.html#map-set-methods
-function zoomToLatLon (point, fromProjection, toProjection) {
+function centerTo (point) {
   map.setView(point, 18); // leaflet apiet bruker lat-lon
 }
-
 
 // oppgave
 // https://github.com/proj4js/proj4js#using
@@ -49,10 +50,10 @@ function zoomToLatLon (point, fromProjection, toProjection) {
 // hint:
 // - må konvertere fra UTM33 (EPSG:32633) til WGS84 (EPSG:4326)
 // - proj4() tar inn [x, y] og returnerer [lon, lat]
-function zoomToXY (xy, fromProjection, toProjection) {
-  var lonlat = proj4(fromProjection, toProjection, xy);
+function convertFromUtm33ToWgs84 (xy, fromProjection, toProjection) {
+  var lonlat = proj4(projections.UTM33, projections.WGS84, xy);
   var latlon = [lonlat[1], lonlat[0]];
-  map.setView(latlon, 18);
+  return latlon;
 }
 
 
