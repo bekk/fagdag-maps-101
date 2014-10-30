@@ -50,7 +50,7 @@ function centerTo (point) {
 // hint:
 // - må konvertere fra UTM33 (EPSG:32633) til WGS84 (EPSG:4326)
 // - proj4() tar inn [x, y] og returnerer [lon, lat]
-function convertFromUtm33ToWgs84 (xy, fromProjection, toProjection) {
+function convertFromUtm33ToWgs84 (xy) {
   var lonlat = proj4(projections.UTM33, projections.WGS84, xy);
   var latlon = [lonlat[1], lonlat[0]];
   return latlon;
