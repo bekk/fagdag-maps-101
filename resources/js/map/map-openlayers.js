@@ -42,7 +42,7 @@ function create (selector) {
 // https://github.com/proj4js/proj4js#using
 //
 // hint:
-// - må konvertere fra
+// - må konvertere fra WGS84 (Lat/lon - EPSG:4326) til WebMercator (EPSG:3857)
 // - proj4() tar inn [lon, lat] og returnerer [x, y]
 function zoomToLatLon (latlon, fromProjection, toProjection) {
   var lonlat = [latlon[1], latlon[0]];
@@ -55,7 +55,7 @@ function zoomToLatLon (latlon, fromProjection, toProjection) {
 // https://github.com/proj4js/proj4js#using
 //
 // hint:
-// - må konvertere fra
+// - må konvertere fra UTM33 (EPSG:32633) til WebMercator (EPSG:3857)
 // - proj4() tar inn [x, y] og returnerer [x, y]
 function zoomToXY (xy, fromProjection, toProjection) {
   xy = proj4(fromProjection, toProjection, xy);
@@ -68,7 +68,7 @@ function zoomToXY (xy, fromProjection, toProjection) {
 // http://openlayers.org/en/v3.0.0/apidoc/ol.Feature.html
 //
 // hint:
-// - må konvertere fra
+// - må konvertere fra WGS84 (Lat/lon - EPSG:4326) til WebMercator (EPSG:3857)
 // - kan projisere,  enten med openlayers eller proj4
 function addMarker (latlon, text) {
   // var xy = ol.proj.transform([latlon[1], latlon[0]], "EPSG:4326", "EPSG:3857");
