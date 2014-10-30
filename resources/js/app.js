@@ -54,8 +54,8 @@ olControl.on('zoom-til-blikkboksen', function () {
 
 // oppgave
 olControl.on('zoom-til-utm33-koordinat', function () {
-  var pointInUtm33Wgs84 = [262030, 6649354];
-  var xy = olMap.convertFromUtm33ToWebMercator(pointInUtm33Wgs84);
+  var xyInUtm33 = [262030, 6649354];
+  var xy = olMap.convertFromUtm33ToWebMercator(xyInUtm33);
   olMap.centerTo(xy);
 });
 
