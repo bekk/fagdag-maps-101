@@ -25,60 +25,60 @@ leafletControl.on('zoom-til-blikkboksen', function () {
 });
 /* oppgave - zoom til blikkboksen i openlayers */
 olControl.on('zoom-til-blikkboksen', function () {
-  var xy = olMap.convertFromWgs84ToWebMercator(places.Blikkboksen);
-  olMap.centerTo(xy);
+  // var xy = olMap.convertFromWgs84ToWebMercator(places.Blikkboksen);
+  // olMap.centerTo(xy);
 });
 
 
 /* oppgave - zoom til utm 33 koordinat i leaflet */
 leafletControl.on('zoom-til-utm33-koordinat', function () {
-  var xyInUtm33 = [262030, 6649354];
-  var latlon = leafletMap.convertFromUtm33ToWgs84(xyInUtm33);
-  leafletMap.centerTo(latlon);
+  // var xyInUtm33 = [262030, 6649354];
+  // var latlon = leafletMap.convertFromUtm33ToWgs84(xyInUtm33);
+  // leafletMap.centerTo(latlon);
 });
 /* oppgave - zoom til utm 33 koordinat i openlayers */
 olControl.on('zoom-til-utm33-koordinat', function () {
-  var xyInUtm33 = [262030, 6649354];
-  var xy = olMap.convertFromUtm33ToWebMercator(xyInUtm33);
-  olMap.centerTo(xy);
+  // var xyInUtm33 = [262030, 6649354];
+  // var xy = olMap.convertFromUtm33ToWebMercator(xyInUtm33);
+  // olMap.centerTo(xy);
 });
 
 
 /* oppgave - add marker i leaflet */
-var leafletMarker = leafletMap.addMarker(Blikkboksen, 'Blikkboksen!');
+// var leafletMarker = leafletMap.addMarker(Blikkboksen, 'Blikkboksen!');
 /* oppgave - add marker i openlayers */
-var olMarker = olMap.addMarker(Blikkboksen, "Blikkboksen!");
+// var olMarker = olMap.addMarker(Blikkboksen, "Blikkboksen!");
 
 
 /* oppgave - toggle geojson fylker i leaflet */
 leafletControl.on('toggle-geojson-fylker', function (onOrOff) {
-  leafletMap.toggleGeojsonFylker();
+  // leafletMap.toggleGeojsonFylker();
 });
 /* oppgave - toggle geojson fylker i openlayers */
 olControl.on('toggle-geojson-fylker', function (onOrOff) {
-  olMap.toggleGeojsonFylker();
+  // olMap.toggleGeojsonFylker();
 });
 
 
 /* oppgave - toggle geojson kommuner i leaflet */
 leafletControl.on('toggle-geojson-kommuner', function (onOrOff) {
-  leafletMap.toggleGeojsonKommuner();
+  // leafletMap.toggleGeojsonKommuner();
 });
 /* oppgave - toggle geojson kommuner i openlayers */
 olControl.on('toggle-geojson-kommuner', function (onOrOff) {
-  olMap.toggleGeojsonKommuner();
+  // olMap.toggleGeojsonKommuner();
 });
 
 
 /* oppgave - toggle kumlokk leaflet */
 leafletControl.on('toggle-kumlokk', function () {
-  leafletMap.toggleKumlokk();
+  // leafletMap.toggleKumlokk();
 });
 /* oppgave - toggle kumlokk openlayers */
 olControl.on('toggle-kumlokk', function () {
-  olMap.toggleKumlokk();
+  // olMap.toggleKumlokk();
 });
 
 
 /* oppgave - popups i openlayers (omfattende) */
-olMap.enablePopups('.map-openlayers-popup');
+// olMap.enablePopups('.map-openlayers-popup');

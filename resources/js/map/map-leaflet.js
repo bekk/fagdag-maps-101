@@ -41,8 +41,11 @@ function create (selector) {
 
 // oppgave
 // http://leafletjs.com/reference.html#map-set-methods
+//
+// hint:
+// - leaflet apiet bruker lat-lon
 function centerTo (point) {
-  map.setView(point, 18); // leaflet apiet bruker lat-lon
+
 }
 
 
@@ -53,18 +56,14 @@ function centerTo (point) {
 // - må konvertere fra UTM33 (EPSG:32633) til WGS84 (EPSG:4326)
 // - proj4() tar inn [x, y] og returnerer [lon, lat]
 function convertFromUtm33ToWgs84 (xy) {
-  var lonlat = proj4(projections.UTM33, projections.WGS84, xy);
-  var latlon = [lonlat[1], lonlat[0]];
-  return latlon;
+
 }
 
 
 // oppgave
 // http://leafletjs.com/reference.html#marker
 function addMarker (latlon, text) {
-  return L.marker(latlon)
-          .bindPopup(text)
-          .addTo(map);
+
 }
 
 
@@ -76,12 +75,11 @@ function addMarker (latlon, text) {
 var geojsonLayerFylker;
 function toggleGeojsonFylker () {
   if (geojsonLayerFylker) {
-    map.removeLayer(geojsonLayerFylker);
-    geojsonLayerFylker = undefined;
+
   }
   else {
     geojson.fylker(function (fylker) {
-      geojsonLayerFylker = L.geoJson(fylker).addTo(map);
+
     });
   }
 }
@@ -95,18 +93,20 @@ function toggleGeojsonFylker () {
 var geojsonLayerKommuner;
 function toggleGeojsonKommuner () {
   if (geojsonLayerKommuner) {
-    map.removeLayer(geojsonLayerKommuner);
-    geojsonLayerKommuner = undefined;
+
   }
   else {
     geojson.kommuner(function (kommuner) {
-      geojsonLayerKommuner = L.geoJson(kommuner).addTo(map);
+
     });
   }
 }
 
 
 // frivillig
+//
+// hint:
+// - https://www.mapbox.com/mapbox.js/example/v1.0.0/omnivore-wkt/
 var kumlokkLayer;
 function toggleKumlokk () {
 
