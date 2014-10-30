@@ -72,6 +72,6 @@ olControl.on('toggle-geojson-kommuner', function (onOrOff) {
   olMap.toggleGeojsonKommuner();
 });
 
-// oppgave
+// oppgave - omfattende
 olMap.enablePopups('.map-openlayers-popup');
 
