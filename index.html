@@ -94,31 +94,49 @@ http://leafletjs.com/reference.html
 http://openlayers.org/en/v3.0.0/apidoc
 
 ---
-#Kartstacken; kartdata
-##Raster og Vektor-data
+#Raster-kartdata
+Et *bilde* bestående av pixler, og ofte bakgrunnsbildet på et kart. 
+Hver pixel kan inneholde både visuell og meta-informasjon.
+###png, gif, jpg, geoTIFF, JPEG2000.
 
+--
+
+##Vektor-kartdata
+Beskrivende tekst med koordinater og relasjonen mellom disse; f.eks punkt eller linje/polygon med relasjonen mellom disse.
+
+Kartlag som legges "oppå" bakgrunnskartet vil ofte være vektor-data.
+
+###Shapefile, GeoJSON, TopoJSON, KML
+
+---
+#Kartservere
+Tar imot forespørsler om kartbilder, henter fra kartdata og leverer ut på ønsket format.
+
+Kartdata leveres hovedsaklig ut fra kartserveren enten som WMS eller Tiles.
+
+###GeoServer, GeoWebCache, ArcGis Server, MapServer
+
+---
+#Tiles (fliser)
+<img src="img/tiles-inndeling.png" align="right"/>
+adsf
 
 ???
 Torgeir viser frem nettloggen for tiles slik at vi ser /x/y/z-spørringen
 
 ---
-#Kartstacken; kartserver
-Kartservere:
-GeoServer, GeoWebCache, ArcGis Server, MapServer: Kort gjennomgang av hver.. (tabell?)
+#WMS
+Kartdataene er ikke forhåndbehandlet, så kartserveren gjør all prosessering *on-the-fly*.
 
-Data som leveres:
-Hovedforskjellen mellom WMS vs Tiles
-<img src="img/tiles-inndeling.png"/>
-VISE SPØRRINGENE I NETTLESEREN FOR TILES 
----
-#Kartstacken; klienter
-OpenLayers, Leaflet, ArcGisClient, Google, MapBox
+Brukes ofte for å vise data som er dynamiske eller små datamengder.
 
-???
-
-Torgeir: litt erfaringer fra et par av klientene
+###Fordeler
+større frihet mht zoom-nivå og on-the-fly valg av kartinnhold, trenger ikke forhåndshåndtere data
+###Ulemper
+Skalerer dårlig
 
 ---
+
 #Koordinatsystemer
 <img src="img/geographic-coordinate-system.png" align="right" width="120px">
 ##Geografisk koordinatsystem
@@ -164,17 +182,17 @@ Et *datum* er en slik modell, og den mest utbredte modellen (datumet) er *WGS84*
 <img src="img/datum-visualisering.gif" width="500px">
 </div>
 ---
+#Projeksjon; fra kule til ark
 
-#Hvordan angi en posisjon på et flatt kart?
-##Svar: Projeksjon
 *Kartprojeksjon er den metode man bruker når man på et kart skal overføre Jordens eller et annet rundt himmellegemes overflatetrekk til et flatt kart.*
 
+Problemstilling er å representere en rund jord på en flat skjerm/papir.
 
-Problemstilling er å representere en rund jord på en flat skjerm/papir
-<br><br>
 <div align="center">
-<img src="img/projeksjoner.jpg" width="650px">
+<img src="img/projeksjoner.jpg" width="500px">
 </div>
+
+
 ???
 
 Projections are what we call the mathematical equations that do the trick of turning the world into some flat shape that fits on a printout or a computer screen. 
@@ -186,15 +204,14 @@ You either lose direction, or relative size, or come out with something very wei
 ---
 #WebMercator projeksjon
 Dette er "defacto"-standard for projeksjon i webapplikasjoner. Denne brukes av Google Maps, Open Street Map, Bing Maps, Mapquest og mange andre.
-Projeksjonen er i stor grad identisk med "ordinær" WGS84, dvs vanlig Latitude og Longitude
 
-##Kjært barn har mange navn...
+###Kjært barn har mange navn...
 *Web Mercator, Google Web Mercator, Spherical Mercator, WGS 84 Web Mercator, WGS 84/Pseuco-Mercator....*
 
-##... og mange id'er
-*EPSG:900913, EPSG:900913, EPSG:3785, EPSG:3857, EPSG:102113, EPSG:102100, EPSG:41001 og ESRI:54004*
+###... og mange id'er
+*EPSG:900913, EPSG:3785, EPSG:3857, EPSG:102113, EPSG:102100, EPSG:41001 og ESRI:54004*
 
-##Korrekt i dag er: EPSG:3857
+###Korrekt i dag er: EPSG:3857
 	
 ???
 
@@ -205,12 +222,10 @@ Mye enklere å beregne, men unøyaktig rundt polene
 # Oppgave
 
 Leaflet zoomer allerede til Blikkboksen. Det er enkelt fordi: 
-- antar at bakgrunnskart er i WebMercator (EPSG:3857)
-- APIet tar alle koordinater i WGS84 (EPSG:4326)
+- Leflet antar automatisk at bakgrunnskart er i WebMercator (EPSG:3857)
+- Leaflets API tar alle inndata (koordinater) du bruker i WGS84 (EPSG:4326)
 
-
-OpenLayers forventer at koordinatene er i samme projeksjon som bakgrunnskartet
-
+OpenLayers kan være litt vanskeligere, fordi den forventer at inndataene er i samme projeksjon (koordinatsystem) som bakgrunnskartet
 --
 
 ## Zoom til Blikkboksen i Openlayers
