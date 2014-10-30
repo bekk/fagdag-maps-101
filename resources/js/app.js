@@ -21,8 +21,8 @@ leafletControl.on('zoom-til-blikkboksen', function () {
 
 // oppgave
 leafletControl.on('zoom-til-utm33-koordinat', function () {
-  var pointInUtm33Wgs84 = [262030, 6649354];
-  var latlon = leafletMap.convertFromUtm33ToWgs84(pointInUtm33Wgs84);
+  var xyInUtm33 = [262030, 6649354];
+  var latlon = leafletMap.convertFromUtm33ToWgs84(xyInUtm33);
   leafletMap.centerTo(latlon);
 });
 
