@@ -221,21 +221,22 @@ Mye enklere å beregne, men unøyaktig rundt polene
 
 # Oppgave
 
-Leaflet zoomer allerede til Blikkboksen. Det er enkelt fordi: 
+## Zoom til Blikkboksen i leaflet
+
+Det er enkelt å zoome til lat long i leaflet, fordi: 
 - Leflet antar automatisk at bakgrunnskart er i WebMercator (EPSG:3857)
 - Leaflets API tar alle inndata (koordinater) du bruker i WGS84 (EPSG:4326)
 
-OpenLayers kan være litt vanskeligere, fordi den forventer at inndataene er i samme projeksjon (koordinatsystem) som bakgrunnskartet
 --
 
 ## Zoom til Blikkboksen i Openlayers
+
+OpenLayers kan være litt vanskeligere, fordi den forventer at inndataene er i samme projeksjon (koordinatsystem) som bakgrunnskartet
 
 - Blikkboksen-koordinatene er i WGS84 (EPSG:4326)
 - Bakgrunnskartet er i WebMercator (EPSG:3857)
 
 **Hint**: metoden `ol.proj.transform()` konverterer mellom projeksjoner
-
-
 
 ---
 #UTM - Projeksjon
