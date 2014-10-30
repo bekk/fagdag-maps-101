@@ -21,12 +21,15 @@ var config = {
 
 
 var map;
-function create (selector, latlon) {
+function create (selector) {
   var el = $(selector).get(0);
 
   map = new ol.Map({
     target: el,
-    view: new ol.View({ center: [0, 0], zoom: 1 }),
+    view: new ol.View({
+      center: [0, 0],
+      zoom: 1
+    }),
     controls: ol.control.defaults({ attribution: false }).extend([config.Attribution]),
     layers: [ new ol.layer.Tile({ source: new ol.source.OSM() }) ]
   });

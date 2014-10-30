@@ -13,7 +13,7 @@ var EPSG_UTM33 = "+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs
 
 // Leaflet
 var leafletControl = new MapControl('.map-control--leaflet');
-var leafletMap = LeafletMap.create('.map-leaflet', Blikkboksen);
+var leafletMap = LeafletMap.create('.map-leaflet');
 
 // oppgave
 var leafletMarker = leafletMap.addMarker(Blikkboksen, 'Blikkboksen!');
@@ -42,7 +42,7 @@ leafletControl.on('toggle-geojson-kommuner', function (onOrOff) {
 
 // OpenLayers
 var olControl = new MapControl('.map-control--openlayers');
-var olMap = OpenlayersMap.create('.map-openlayers', Blikkboksen);
+var olMap = OpenlayersMap.create('.map-openlayers');
 
 // oppgave
 var olMarker = olMap.addMarker(Blikkboksen, "Blikkboksen!");

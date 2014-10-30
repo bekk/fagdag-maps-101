@@ -22,7 +22,6 @@ var config = {
 };
 
 var map;
-
 function create (selector) {
   var el = $(selector).get(0);
   map = L.map(el).setView([0, 0], 1);
