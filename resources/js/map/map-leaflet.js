@@ -47,7 +47,7 @@ function zoomToLatLon (point, fromProjection, toProjection) {
 // https://github.com/proj4js/proj4js#using
 //
 // hint:
-// - må konvertere fra
+// - må konvertere fra UTM33 (EPSG:32633) til WGS84 (EPSG:4326)
 // - proj4() tar inn [x, y] og returnerer [lon, lat]
 function zoomToXY (xy, fromProjection, toProjection) {
   var lonlat = proj4(fromProjection, toProjection, xy);
