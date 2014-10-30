@@ -109,6 +109,8 @@ Torgeir: litt erfaringer fra et par av klientene
 Angir enhver posisjon på jorden med utgangspunkt i jordens sentrum vha grader; *latitude* og *longitude*.
 
 Mest kjent er WGS84 som brukes i *alle* moderne GPS'er, og som har en nøyaktighet på ca 1 meter rundt hele kloden.
+--
+
 
 <img src="img/cartesian-coordinate-system.gif" align="right" width="190px">
 ##Kartesisk koordinatsystem
@@ -116,15 +118,37 @@ Angir posisjoner på en todimensjonal flate med "vanlige" *x*- og *y*-koordinate
 
 Mest kjent er WebMercator (som brukes av Google, Bing, OSM) og UTM som brukes mye i norge.
 
+???
+
+I USA benyttes også NAD83 og NAD27 (North American Datum)
+
 ---
-#Hvordan angi en posisjon på kloden?
-##WGS World Geodetic System - WGS 84
-Dette er latitude og longitude (samt altitude) som vi i dag kjenner det fra våre GPSer. Utgangspunktet for beregningen er jordens senter.
+#WGS 84 - World Geodetic System 1984
+Den mest utbredte standarden for geografiske systemer; består av:
+ * Koordinatsystemet *WGS84*; dette er latitude og longitude som vi kjenner det fra alle moderne GPSer i dag.
+ * Datumet *WGS84*; som er en matematiske beskrivelse av jordens form og overflate
 <br><br>
 <div align="center">
 <img src="img/globe.jpg" align="center">
 </div>
+
+???
+
+I USA benyttes også NAD83 og NAD27 (North American Datum).
+
+WGS84 prøver å gi en god tilpasning for hele verden, mens NAD er mer tilpasset til USA.
+
 ---
+#Men.. hva er datum
+Jorden er ikke en perfekt rund sirkel, så vi lager en matematisk modell for å kunne gjøre beregninger.
+
+Et *datum* er en slik modell, og den mest utbredte modellen (datumet) er *WGS84*.
+
+<div align="center">
+<img src="img/datum-visualisering.gif" width="500px">
+</div>
+---
+
 #Hvordan angi en posisjon på et flatt kart?
 ##Svar: Projeksjon
 *Kartprojeksjon er den metode man bruker når man på et kart skal overføre Jordens eller et annet rundt himmellegemes overflatetrekk til et flatt kart.*
