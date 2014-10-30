@@ -12,7 +12,8 @@ module.exports = {
   convertFromUtm33ToWgs84: convertFromUtm33ToWgs84,
   addMarker: addMarker,
   toggleGeojsonFylker: toggleGeojsonFylker,
-  toggleGeojsonKommuner: toggleGeojsonKommuner
+  toggleGeojsonKommuner: toggleGeojsonKommuner,
+  toggleKumlokk: toggleKumlokk
 };
 
 L.Icon.Default.imagePath = "images"; // leaflet needs this to work
@@ -102,4 +103,11 @@ function toggleGeojsonKommuner () {
       geojsonLayerKommuner = L.geoJson(kommuner).addTo(map);
     });
   }
+}
+
+
+// frivillig
+var kumlokkLayer;
+function toggleKumlokk () {
+
 }

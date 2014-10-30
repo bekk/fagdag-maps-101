@@ -70,5 +70,15 @@ olControl.on('toggle-geojson-kommuner', function (onOrOff) {
 });
 
 
+/* oppgave - toggle kumlokk leaflet */
+leafletControl.on('toggle-kumlokk', function () {
+  leafletMap.toggleKumlokk();
+});
+/* oppgave - toggle kumlokk openlayers */
+olControl.on('toggle-kumlokk', function () {
+  olMap.toggleKumlokk();
+});
+
+
 /* oppgave - popups i openlayers (omfattende) */
 olMap.enablePopups('.map-openlayers-popup');

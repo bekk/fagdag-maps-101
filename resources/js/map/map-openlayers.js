@@ -4,6 +4,7 @@ var proj4 = require('proj4');
 
 var projections = require('./projections');
 var geojson = require('../geojson');
+var nvdb = require('../nvdb');
 var places = require('../places');
 
 module.exports = {
@@ -14,6 +15,7 @@ module.exports = {
   addMarker: addMarker,
   toggleGeojsonFylker: toggleGeojsonFylker,
   toggleGeojsonKommuner: toggleGeojsonKommuner,
+  toggleKumlokk: toggleKumlokk,
   enablePopups: enablePopups
 };
 
@@ -142,6 +144,39 @@ function toggleGeojsonKommuner () {
     var source = new ol.source.GeoJSON({ projection: projections.WebMercator, url: '/js/vendor/kommuner.json' });
     geojsonLayerKommuner = new ol.layer.Vector({ source: source });
     map.addLayer(geojsonLayerKommuner);
+  }
+}
+
+
+// oppgave
+var kumlokkLayer;
+function toggleKumlokk () {
+  if (kumlokkLayer) {
+    map.removeLayer(kumlokkLayer);
+    kumlokkLayer = undefined;
+    }
+  else {
+    nvdb.kumlokk(function (kumlokk) {
+      var kumlokkFeatures = kumlokk.map(function (kumlokk) {
+        var wgs84string = kumlokk.lokasjon.geometriWgs84;
+
+        var feature = new ol.format.WKT().readFeatures(wgs84string)[0];
+        feature.getGeometry().transform(projections.WGS84, projections.WebMercator);
+        feature.setStyle(new ol.style.Style({
+          image: new ol.style.Circle({
+            radius: 10,
+            fill: null,
+            stroke: new ol.style.Stroke({ color: 'red', width: 10 })
+          })
+        }));
+
+        return feature;
+      });
+
+      var kumlokkSource = new ol.source.Vector({ features: kumlokkFeatures });
+      kumlokkLayer = new ol.layer.Vector({ source: kumlokkSource });
+      map.addLayer(kumlokkLayer);
+    });
   }
 }
 
