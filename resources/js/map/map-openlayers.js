@@ -1,15 +1,18 @@
 var $ = require('zepto-browserify').$;
 var ol = require('ol');
+var proj4 = require('proj4');
 
 var geojson = require('../geojson');
 var places = require('../places');
 
 module.exports = {
   create: create,
+  zoomToLatLon: zoomToLatLon,
+  zoomToXY: zoomToXY,
   addMarker: addMarker,
-  enablePopups: enablePopups,
   toggleGeojsonFylker: toggleGeojsonFylker,
-  toggleGeojsonKommuner: toggleGeojsonKommuner
+  toggleGeojsonKommuner: toggleGeojsonKommuner,
+  enablePopups: enablePopups
 };
 
 var config = {
@@ -21,17 +24,9 @@ var map;
 function create (selector, latlon) {
   var el = $(selector).get(0);
 
-  // TODO oppgave zoom til punkt i
-  var blikkboksen = ol.proj.transform([latlon[1], latlon[0]], "EPSG:4326", "EPSG:3857");
-
-  // TODO openlayers kartet skal ikke være zooma til blikkboksen, det er en oppgave
   map = new ol.Map({
     target: el,
-    view: new ol.View({
-      // center: [0, 0],
-      center: blikkboksen,// TODO fjern
-      zoom: 4
-    }),
+    view: new ol.View({ center: [0, 0], zoom: 1 }),
     controls: ol.control.defaults({ attribution: false }).extend([config.Attribution]),
     layers: [ new ol.layer.Tile({ source: new ol.source.OSM() }) ]
   });
@@ -39,7 +34,20 @@ function create (selector, latlon) {
   return this;
 }
 
-// TODO oppgave 1.2
+// TODO oppgave
+function zoomToLatLon (latlon, fromProjection, toProjection) {
+  var lonlat = [latlon[1], latlon[0]];
+  var xy = proj4(fromProjection, toProjection, lonlat); // proj4 bruker lon, lat
+  map.setView(new ol.View({ center: xy, zoom: 18 }));
+}
+
+// TODO oppgave
+function zoomToXY (xy, fromProjection, toProjection) {
+  xy = proj4(fromProjection, toProjection, xy); // proj4 bruker x, y
+  map.setView(new ol.View({ center: xy, zoom: 18 }));
+}
+
+// TODO oppgave
 function addMarker (latlon, text) {
   var loc = ol.proj.transform([latlon[1], latlon[0]], "EPSG:4326", "EPSG:3857");
   var iconFeature = new ol.Feature({ geometry: new ol.geom.Point(loc), text: text });
@@ -58,7 +66,7 @@ function addMarker (latlon, text) {
   map.addLayer(vectorLayer);
 }
 
-// TODO oppgave 1.3
+// TODO oppgave
 var popup;
 function enablePopups (selector) {
   var el = $(selector);
@@ -110,6 +118,7 @@ function enablePopups (selector) {
   }
 }
 
+// TODO oppgave
 var geojsonLayerFylker;
 function toggleGeojsonFylker () {
   if (geojsonLayerFylker) {
@@ -125,6 +134,7 @@ function toggleGeojsonFylker () {
   }
 }
 
+// TODO oppgave
 var geojsonLayerKommuner;
 function toggleGeojsonKommuner () {
   if (geojsonLayerKommuner) {

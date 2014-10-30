@@ -17,8 +17,14 @@ MapControl.prototype.attachListeners = function (el) {
       selector = '[class|='+prefix+']';
 
   el.on('change', selector +' input', function (e) {
-    var input = e.currentTarget;
-    var ev = $(input).closest(selector).attr('class').replace(prefix+'-', '');
-    self.emit(ev, input.checked);
+    emitEvent(e, e.currentTarget.checked);
   });
+
+  el.on('click', selector +' button', emitEvent);
+
+  function emitEvent (e) {
+    var el = e.currentTarget;
+    var ev = $(el).closest(selector).attr('class').replace(prefix+'-', '');
+    self.emit(ev);
+  }
 };
