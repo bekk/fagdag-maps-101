@@ -1,1 +1,1 @@
-exports.Blikkboksen = [63.39832, 10.3963];
+exports.Blikkboksen = [63.39842, 10.3956];
