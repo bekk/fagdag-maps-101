@@ -119,9 +119,25 @@ Kartdata leveres hovedsaklig ut fra kartserveren enten som WMS eller Tiles.
 ---
 #Tiles (fliser)
 <img src="img/tiles-inndeling.png" align="right"/>
-adsf
+Pregenererte bilder på gitte zoom-nivåer og tile-størrelse normalt på 256 x 256 px
+
+Organiseres inn i rader (opp/ned) og kolonner (høyre/venstre).
+
+Google Maps og OpenStreetMap leverer Tiled maps, og disse er i dag *de facto* standard for Tiles.
+
+**Request-eksempel**
+
+http://tile.openstreetmap.org/{z}/{x}/{y}
 
 ???
+
+Nesten alle kart for offentlig bruk benytter tiles
+
+Når et kartbilde skal vises, så trenger normalt kun 20-30 tiles hentes ned 
+(250px x 250px)
+
+Flere måter å adressere dette på, måten til Google og OSM er "de facto" standard
+
 Torgeir viser frem nettloggen for tiles slik at vi ser /x/y/z-spørringen
 
 ---
@@ -130,10 +146,22 @@ Kartdataene er ikke forhåndbehandlet, så kartserveren gjør all prosessering *
 
 Brukes ofte for å vise data som er dynamiske eller små datamengder.
 
-###Fordeler
-større frihet mht zoom-nivå og on-the-fly valg av kartinnhold, trenger ikke forhåndshåndtere data
-###Ulemper
-Skalerer dårlig
+**Fordeler**
+
+Større frihet mht zoom-nivå og on-the-fly valg av kartinnhold, trenger ikke forhåndshåndtere data
+
+**Ulemper**
+
+Krever mye prosessering av kartserver, og skalerer dårlig
+
+???
+
+Kan for eksempel gjøre cql-spørringer
+
+Spørringen gjøres ved å angi en "bounding-box"
+
+Du har også Tiled WMS hvor kartene i bakgrunn er Tiled, men requesten blir behandlet på serveren og gjort om til å spørre etter pregenererte tiles.
+
 
 ---
 
@@ -205,10 +233,12 @@ You either lose direction, or relative size, or come out with something very wei
 #WebMercator projeksjon
 Dette er "defacto"-standard for projeksjon i webapplikasjoner. Denne brukes av Google Maps, Open Street Map, Bing Maps, Mapquest og mange andre.
 
-###Kjært barn har mange navn...
+**Kjært barn har mange navn...**
+
 *Web Mercator, Google Web Mercator, Spherical Mercator, WGS 84 Web Mercator, WGS 84/Pseuco-Mercator....*
 
-###... og mange id'er
+**... og mange id'er**
+
 *EPSG:900913, EPSG:3785, EPSG:3857, EPSG:102113, EPSG:102100, EPSG:41001 og ESRI:54004*
 
 ###Korrekt i dag er: EPSG:3857
@@ -216,6 +246,26 @@ Dette er "defacto"-standard for projeksjon i webapplikasjoner. Denne brukes av G
 ???
 
 Mye enklere å beregne, men unøyaktig rundt polene
+
+---
+#EPSG
+OGPs *liste* av godkjente koordinat-systemer (og datum).
+
+###De mest brukte
+**EPSG:4326**: WGS 84 (Geografisk) Lat/Lon for GPS
+
+**EPSG:3857**: Google WebMercator  (Kartesisk) .. se også EPSG:900913
+
+**EPSG:32633**: UTM 33 (Kartesisk) brukes mye i norge
+<br><br>
+
+Brukes i kartapplikasjoner for å angi koordinatysstem
+
+Samme kode benyttes også for å angi *crs* (coordinate reference system) og *srs* (spatial reference system) i enkelte klienter.
+
+???
+
+We have reviewed the coordinate reference system used by Microsoft, Google, etc. and believe that it is technically flawed. We will not devalue the EPSG dataset by including such inappropriate geodesy and cartography.
 
 ---
 
@@ -252,13 +302,11 @@ I norge er UTM (sone 32 og 33) utbredt, og brukes i stor grad av blant annet Kar
 </div>
 x 
 
-
 ???
 
-Forklare EPSG-navnet
-The EPSG Geodetic Parameter Dataset is a structured dataset of Coordinate Reference Systems and Coordinate Transformations, accessible through this online registry
-
 Bruker WGS 84 ellipsiode 
+
+Vil da ofte stå "WGS84 / UTM 33"
 
 A Transverse Mercator projection results in extreme distortion in polar areas
 Begrenset til 84 grader nord, og 80 grader sør. Utenfor dette brukes UPS Universal Polar Stereographic
@@ -296,10 +344,15 @@ Torgeir viser frem hvor i koden man skal zoome
 ---
 
 # Kartlag
+Et kart bygges lag for lag...
 
-Informasjon om hvordan vi legger et kartlag på toppen av bakgrunnskart 
+<div align="center">
+<img src="img/layers.png">
+</div>
 
-*Beskrive at dette er måten vi bygger opp kart på*
+Normalt et bakgrunnskart neders, med et sett av *feature*-lag på toppen.
+
+*feature*-lagene består av vektor-data tegnet av klienten, eller gjennomsiktig raster-kart fra kartserver.
 
 ---
 
