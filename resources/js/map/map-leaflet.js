@@ -43,8 +43,8 @@ function create (selector) {
 
 // oppgave
 // http://leafletjs.com/reference.html#map-set-methods
-function centerTo (point) {
-  map.setView(point, 18); // leaflet apiet bruker lat-lon
+function centerTo (latlon) {
+  map.setView(latlon, 18); // leaflet apiet bruker lat-lon
 }
 
 
