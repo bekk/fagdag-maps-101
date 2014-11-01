@@ -1,25 +1,13 @@
 # fagdag-maps-101 workshop
 
-## Forberedelse
+Slides
 
-Du må installere node: http://nodejs.org/dist/v0.10.32/node-v0.10.32.pkg
+http://bekk.github.io/fagdag-maps-101
 
-## Installer avhengigheter
+Repo
 
-```
-npm install
-````
+http://github.com/bekk/fagdag-maps-101
 
-## Kjør utviklingsmiljø!
+Goal
 
-```
-npm run watch
-```
-
-## TODO @torgeir
-geojon (fylker, kommuner, twitter?)
-wms-lag i feil projeksjon? toggle lag av og på
-vise data fra ajax, rolf sender kumlokkdata.
-
-## bonus
-clustring
+http://github.com/bekk/fagdag-maps-101/map/
