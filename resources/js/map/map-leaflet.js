@@ -1,10 +1,12 @@
 var $ = require('zepto-browserify').$;
 var L = require('leaflet');
 var proj4 = require('proj4');
+var omnivore = require('omnivore');
 
 var projections = require('./projections');
 var geojson = require('../geojson');
 var places = require('../places');
+var nvdb = require('../nvdb');
 
 module.exports = {
   create: create,
@@ -109,5 +111,12 @@ function toggleGeojsonKommuner () {
 // - https://www.mapbox.com/mapbox.js/example/v1.0.0/omnivore-wkt/
 var kumlokkLayer;
 function toggleKumlokk () {
+  if (kumlokkLayer) {
 
+  }
+  else {
+    nvdb.kumlokk(function (kumlokk) {
+
+    });
+  }
 }
