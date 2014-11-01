@@ -91,9 +91,9 @@ function addMarker (latlon, text) {
 
   var iconStyle = new ol.style.Style({
     image: new ol.style.Icon({
-      anchor: [13, 41], // half icon height, whole icon height
-      anchorXUnits: 'pixels',
-      anchorYUnits: 'pixels',
+      anchor: [0.5, 1],
+      anchorXUnits: 'fraction',
+      anchorYUnits: 'fraction',
       src: 'images/marker-icon.png'
     })
   });
