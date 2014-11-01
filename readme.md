@@ -10,4 +10,4 @@ http://github.com/bekk/fagdag-maps-101
 
 Goal
 
-http://github.com/bekk/fagdag-maps-101/map/
+http://bekk.github.io/fagdag-maps-101/map/
