@@ -1,4 +1,4 @@
-# fagdag-maps-101 workshop
+# Slides for fagdag-maps-101 workshop
 
 Slides
 
