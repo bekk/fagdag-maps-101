@@ -1,10 +1,12 @@
 var $ = require('zepto-browserify').$;
 var L = require('leaflet');
 var proj4 = require('proj4');
+var omnivore = require('omnivore');
 
 var projections = require('./projections');
 var geojson = require('../geojson');
 var places = require('../places');
+var nvdb = require('../nvdb');
 
 module.exports = {
   create: create,
@@ -109,5 +111,22 @@ function toggleGeojsonKommuner () {
 // frivillig
 var kumlokkLayer;
 function toggleKumlokk () {
+  if (kumlokkLayer) {
+    map.removeLayer(kumlokkLayer);
+    kumlokkLayer = undefined;
+  }
+  else {
+    nvdb.kumlokk(function (kumlokk) {
+      var features = kumlokk.map(function (lokk) {
+        var wgs84str = lokk.lokasjon.geometriWgs84;
+        var feature = omnivore.wkt.parse(wgs84str);
 
+        var popupText = lokk.objektTypeNavn + " (objektId: " + lokk.objektId + ")";
+        feature.bindPopup(popupText);
+
+        return feature;
+      });
+      L.featureGroup(features).addTo(map);
+    });
+  }
 }

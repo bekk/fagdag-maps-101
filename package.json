@@ -45,7 +45,11 @@
   },
   "devDependencies": {},
   "browserify-shim": {
-    "ol": "global:ol"
+    "ol": "global:ol",
+    "omnivore": "omnivore"
+  },
+  "browser": {
+    "omnivore": "./resources/js/vendor/leaflet-omnivore.js"
   },
   "browserify": {
     "transform": [
